@@ -223,7 +223,7 @@ const ScaleneTriangle = () => {
                         backgroundColor: "#f9f9f9",
                         padding: "10px",
                         borderRadius: "10px",
-                        zIndex: 9999,
+                        zIndex: isLiveClass ? 0 : 9999,
                         width: ismaximized ? "300px" : "250px"
                     }}
                 >

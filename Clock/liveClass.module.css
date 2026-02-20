@@ -1,0 +1,219 @@
+.clockApp {
+  background-color: #fbcfe8;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cardClient {
+  width: 100%;
+  max-width: 28rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.timeInWords {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 0.375rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+}
+
+.customClassNew {
+  width: 100%;
+  /* w-full */
+  flex: 1 1 0%;
+  /* flex-1 */
+  display: flex;
+  /* flex */
+  align-items: center;
+  /* items-center */
+  justify-content: center;
+  /* justify-center */
+  min-height: 0;
+  /* min-h-0 */
+}
+
+.clockContainer {
+  position: relative;
+  /* relative */
+  width: 100%;
+  /* w-full */
+  max-width: 350px;
+  /* max-w-[350px] */
+  aspect-ratio: 1 / 1;
+  /* aspect-square */
+  max-height: 55vh;
+  /* max-h-[55vh] */
+}
+
+.cardClockName {
+  width: 400px;
+  /* height: 220px; */
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px;
+  gap: 13px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.062);
+  color: palevioletred;
+  font-weight: bolder;
+}
+
+.clockFace {
+  width: 100%;
+  height: 100%;
+  border: 10px solid pink;
+  border-radius: 50%;
+  position: relative;
+  background-color: #f8f8f8;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  touch-action: none;
+  box-shadow: 1px 5px 5px 4px #db7093;
+
+}
+
+.centerCircle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  border: 11px solid rgb(239, 178, 178);
+  border-radius: 50px;
+  box-shadow: 0px 0px 5px 0px rgb(239, 178, 178);
+}
+
+.hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+
+.handImage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform-origin: center bottom;
+}
+
+.hourImage {
+  height: 30%;
+  /* Adjust based on your image */
+  transform: translateX(-50%);
+}
+
+.minuteImage {
+  height: 7rem;
+  /* Adjust based on your image */
+  transform: translateX(-50%);
+  cursor: grab;
+}
+
+.minuteHand.grabbing .minuteImage {
+  cursor: grabbing;
+}
+
+/* .handImage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  pointer-events: none;
+
+  height: 5.3rem;
+  max-width: 20rem;
+
+} */
+   
+.handImage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  pointer-events: none; /* Disable pointer events on the image */
+  height: 5.3rem;
+  max-width: 20rem;
+  
+}
+
+.handImage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+}
+
+.dragMe {
+  font-size: small;
+  position: absolute;
+  color: green;
+  left: 10rem;
+  top: 4rem;
+  width: 50px;
+  height: 50px;
+
+}
+.dragMe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  animation: shakeX 0.6s ease-in-out infinite;
+}
+.dragMe img {
+  width: 100%;
+  animation: shakeX 0.6s ease-in-out infinite;
+}
+
+@media (min-width: 1250px) {}
+
+
+@media (min-width: 640px) {
+  .timeInWords {
+    font-size: 1.25rem;
+  }
+
+  .clockContainer {
+    max-height: 60vh;
+    /* sm:max-h-[60vh] */
+  }
+}
+
+@media (min-width: 768px) {
+  .timeInWords {
+    font-size: 1.5rem;
+  }
+
+  .clockContainer {
+    max-height: 65vh;
+    /* md:max-h-[65vh] */
+  }
+}

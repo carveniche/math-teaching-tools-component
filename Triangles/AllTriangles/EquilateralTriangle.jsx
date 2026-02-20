@@ -166,7 +166,7 @@ const EquilateralTriangle = () => {
     //     isSide: false,
     //     isInfo: false
     // })
-    const { descriptionData, setDescriptionData, ismaximized ,isActiveButton, setIsActiveButton} = useTriangleContext();
+    const { descriptionData, setDescriptionData, ismaximized ,isActiveButton, setIsActiveButton,isLiveClass} = useTriangleContext();
     useEffect(() => {
         if (isActiveButton.isAngle === false) {
             setDescriptionData("");
@@ -216,7 +216,7 @@ const EquilateralTriangle = () => {
                         backgroundColor: "#f9f9f9",
                         padding: "10px",
                         borderRadius: "10px",
-                        zIndex: 9999,
+                        zIndex: isLiveClass ? 0 : 9999,
                         width: ismaximized ? "300px" : "250px"
                     }}
                 >

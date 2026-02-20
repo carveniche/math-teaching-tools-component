@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./clock.css";
 import { createClockNumbers, timeToWords } from "./Clock";
+import styles1 from "./liveClass.module.css";
+import styles2 from "./portalClock.module.css";
 
-const Clock = ({ handleDataTrack, role_name,StudentClockData,isLiveClass }) => {
+const Clock = ({ handleDataTrack, role_name, StudentClockData, isLiveClass }) => {
+
+    const style = isLiveClass ? styles1 : styles2;
     const [time, setTime] = useState({ hours: 12, minutes: 0, seconds: 0 });
     const [hourInput, setHourInput] = useState("12");
     const [minuteInput, setMinuteInput] = useState("00");
@@ -24,7 +28,7 @@ const Clock = ({ handleDataTrack, role_name,StudentClockData,isLiveClass }) => {
         if (role_name === "tutor" && isLiveClass) {
             handleDataTrack({ minute: minuteInput, hour: hourInput })
         }
-    }, [minuteInput, hourInput, role_name,isLiveClass]);
+    }, [minuteInput, hourInput, role_name, isLiveClass]);
 
     useEffect(() => {
         if (role_name !== "tutor" && StudentClockData, isLiveClass) {
@@ -33,7 +37,7 @@ const Clock = ({ handleDataTrack, role_name,StudentClockData,isLiveClass }) => {
             setHourInput(hour);
             setTime({ hours: parseInt(hour), minutes: parseInt(minute), seconds: 0 });
         }
-    }, [StudentClockData, role_name,isLiveClass]);
+    }, [StudentClockData, role_name, isLiveClass]);
 
 
     useEffect(() => {

@@ -14,7 +14,7 @@ const TriangleContext = createContext({
 });
 
 
-export const TriangleProvider = ({ children }) => {
+export const TriangleProvider = ({ children, StudentData }) => {
   const [trianglelist, setTriangleList] = useState("Equilateral Triangle");
   const [descriptionData, setDescriptionData] = useState("");
 
@@ -32,7 +32,7 @@ export const TriangleProvider = ({ children }) => {
     isSide: false,
     isInfo: false,
   };
-  
+
   const value = {
     trianglelist,
     setTriangleList,
@@ -44,10 +44,25 @@ export const TriangleProvider = ({ children }) => {
     isActiveButton, setIsActiveButton
   }
 
+  const isAccess = role_name.toString() !== "tutor" && isLiveClass
+
   useEffect(() => {
-    setIsActiveButton(defaultActiveButton);
-    setDescriptionData("");
-  }, [trianglelist]);
+    if (isAccess) {
+      setIsActiveButton(defaultActiveButton);
+      setDescriptionData("");
+    }
+
+  }, [trianglelist,]);
+
+
+  useEffect(() => {
+    if (StudentData && isAccess) {
+      const { descriptionData, isActiveButton, trianglelist } = StudentData ?? {}
+      setDescriptionData(descriptionData);
+      setIsActiveButton(isActiveButton);
+      setTriangleList(trianglelist)
+    }
+  }, [StudentData, isAccess])
 
 
   return (

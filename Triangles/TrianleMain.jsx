@@ -4,18 +4,18 @@ import Setting from './Setting/Setting.jsx'
 // import EquilateralTriangle from './AllTriangles/EquilateralTriangle'
 import TriangleMaping from './AllTriangles/TriangleMaping.jsx'
 
-const TrianleMain = ({ prop,handleDataTrack }) => {
+const TrianleMain = ({ prop, handleDataTrack ,StudentData }) => {
   return (
-    <TriangleProvider>
+    <TriangleProvider StudentData={StudentData}>
       <MainContent prop={prop} handleDataTrack={handleDataTrack} />
     </TriangleProvider>
   )
 }
 
 
-const MainContent = ({ prop,handleDataTrack }) => {
+const MainContent = ({ prop, handleDataTrack }) => {
   const { state, setState, setIsMaximized, isLiveClass, setIsLiveClass,
-    role_name, setRoleName, descriptionData, isActiveButton, trianglelist} = useTriangleContext();
+    role_name, setRoleName, descriptionData, isActiveButton, trianglelist } = useTriangleContext();
   const settingRef = useRef(null);
   useEffect(() => {
     const { isLiveClass, role_name } = prop ?? {}
@@ -86,14 +86,14 @@ const MainContent = ({ prop,handleDataTrack }) => {
       const data = {
         descriptionData: descriptionData,
         isActiveButton: isActiveButton,
-        trianglelist:trianglelist
+        trianglelist: trianglelist
       }
       handleDataTrack(data)
     }
 
-  }, [descriptionData, isActiveButton, isLiveClass, role_name,trianglelist])
+  }, [descriptionData, isActiveButton, isLiveClass, role_name])
 
-
+  const isAccess = isLiveClass && role_name === "tutor"
 
   return (
     <div
@@ -127,16 +127,14 @@ const MainContent = ({ prop,handleDataTrack }) => {
         <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/full.png" alt="full-screen" onClick={toggleFullscreen} />
 
       </div>}
-      <div
+      {isAccess && (<div
         onClick={openSettingHandler}
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
           position: 'absolute',
-          zIndex: 10,
+          zIndex: isLiveClass ? 1 : 10,
           // bottom:'20px',
-
-
           left: "2rem",
           top: "1rem",
           cursor: "pointer",
@@ -158,7 +156,7 @@ const MainContent = ({ prop,handleDataTrack }) => {
           }}
         />
         {/* setting */}
-      </div>
+      </div>)}
       <div
         style={{
           // position: 'relative',
