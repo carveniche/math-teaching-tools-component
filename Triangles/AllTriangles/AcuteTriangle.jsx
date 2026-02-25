@@ -132,7 +132,7 @@ const Description = () => {
 
 const AcuteTriangle = () => {
 
-    const { descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -150,75 +150,90 @@ const AcuteTriangle = () => {
 
 
     return (
-        <div style={{
-            display: "flex",
-            position: "relative",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "20px",
-            width: "100%",
-            height: "100%",
-        }}>
-
-            <Triangle label="Acute Triangle" points="150,60 260,280 40,280"
-                isActiveButton={isActiveButton}
-                ismobile={ismobile}
-            />
-            {descriptionData.length > 0 &&
-                (<div
-                    style={{
-                        width: "auto",
-                        position: "absolute",
-                        right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
-                        top: "30%",
-                        transform: "translateY(-50%)",
-                        textAlign: "center",
-                        fontSize: "18px",
-                        color: "#444",
-                        backgroundColor: "#f9f9f9",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        zIndex: isLiveClass ? 0 : 9999,
-                        width: ismaximized ? "300px" : "250px"
-                    }}
-                >
-                    <Description />
-                </div>)
-            }
-
-            <div style={{ display: "flex", bottom: "20px", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px", width: "full", height: "100px", borderRadius: "20px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", width: "full", gap: "20px" }}>
-
-
-                    <CommonButton value="Mark Angles"
-                        isActiveButton={isActiveButton.isAngle}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`All angles are acute angles <br/>
-                                (Angles less than 90°).`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isAngle: !prev.isAngle
-                            }))
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "100%",
+            }}
+        >
+            {/* ---------- SVG AREA (Flexible) ---------- */}
+            <div
+                style={{
+                    flex: 1,
+                    minHeight: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                }}
+            >
+                <Triangle label="Acute Triangle" points="150,60 260,280 40,280"
+                    isActiveButton={isActiveButton}
+                    ismobile={ismobile}
+                />
+                {descriptionData.length > 0 &&
+                    (<div
+                        style={{
+                            width: "auto",
+                            position: "absolute",
+                            right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
+                            top: "30%",
+                            transform: "translateY(-50%)",
+                            textAlign: "center",
+                            fontSize: "18px",
+                            color: "#444",
+                            backgroundColor: "#f9f9f9",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            zIndex: isLiveClass ? 0 : 9999,
+                            width: ismaximized ? "300px" : "250px"
                         }}
-                    />
-                    <CommonButton value="Show Info"
-                        isActiveButton={isActiveButton.isInfo}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`● A classification by angles.<br/>
+                    >
+                        <Description />
+                    </div>)
+                }
+            </div>
+
+            
+            <div
+                style={{
+                    flexShrink: 0,
+                    padding: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    gap: "20px",
+                }}
+            >
+                <CommonButton value="Mark Angles"
+                    isActiveButton={isActiveButton.isAngle}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`All angles are acute angles <br/>
+                                (Angles less than 90°).`)
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isAngle: !prev.isAngle
+                        }))
+                    }}
+                />
+                <CommonButton value="Show Info"
+                    isActiveButton={isActiveButton.isInfo}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`● A classification by angles.<br/>
                                                 ● All three angles are less than 90°.<br/>
                                                 ● All angles are acute.`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isInfo: !prev.isInfo
-                            }))
-                        }}
-                    />
-                </div>
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isInfo: !prev.isInfo
+                        }))
+                    }}
+                />
             </div>
+
 
         </div>
     )

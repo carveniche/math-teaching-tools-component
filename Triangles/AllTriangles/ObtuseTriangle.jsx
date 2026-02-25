@@ -91,7 +91,7 @@ const Description = () => {
 
 const ObtuseTriangle = () => {
 
-    const { descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     useEffect(() => {
@@ -109,17 +109,25 @@ const ObtuseTriangle = () => {
     const theme = useTheme();
     const ismobile = useMediaQuery(theme.breakpoints.down("sm"));
     return (
-        <div style={{
-            display: "flex",
-            position: "relative",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "20px",
-            width: "100%",
-            height: "100%",
-        }}>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "100%",
+            }}
+        >
+            {/* ---------- SVG AREA (Flexible) ---------- */}
+            <div
+                style={{
+                    flex: 1,
+                    minHeight: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                }}
+            >
 
             <Triangle
                 label="Obtuse Triangle"
@@ -149,41 +157,49 @@ const ObtuseTriangle = () => {
                     <Description />
                 </div>)
             }
+            </div>
 
-            <div style={{ display: "flex", bottom: "20px", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px", width: "full", height: "100px", borderRadius: "20px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", width: "full", gap: "20px" }}>
+            <div
+                style={{
+                    flexShrink: 0,
+                    padding: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    gap: "20px",
+                }}
+            >
 
-
-                    <CommonButton value="Show Angles"
-                        isActiveButton={isActiveButton.isAngle}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(` One angle is an obtuse angle <br />
+                <CommonButton value="Show Angles"
+                    isActiveButton={isActiveButton.isAngle}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(` One angle is an obtuse angle <br />
         (Angle greater than 90°).`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isAngle: !prev.isAngle
-                            }))
-                        }}
-                    />
-                    <CommonButton value="Show Info"
-                        isActiveButton={isActiveButton.isInfo}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`● A classification by angles.<br/>
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isAngle: !prev.isAngle
+                        }))
+                    }}
+                />
+                <CommonButton value="Show Info"
+                    isActiveButton={isActiveButton.isInfo}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`● A classification by angles.<br/>
                                                 ● One angle is greater than 90°.<br/>
                                                 ● The triangle has exactly one obtuse angle.
                                             `)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isInfo: !prev.isInfo
-                            }))
-                        }}
-                    />
-                </div>
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isInfo: !prev.isInfo
+                        }))
+                    }}
+                />
             </div>
 
-        </div>
+
+        </div >
     )
 }
 

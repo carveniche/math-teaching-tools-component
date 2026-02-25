@@ -71,15 +71,22 @@ const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
                 flexDirection: "column",
                 margin: '10px',
                 backgroundColor: "white",
-                width: ismobile ? "100%" : "400px",
+                width: ismobile ? "100%" : "28%",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "350px",
+                height: "100%",
                 borderRadius: "30px",
                 cursor: 'pointer',
 
             }}>
-            <svg width="360" height="300" style={{}}>
+            <svg
+                viewBox="0 0 360 300"
+                preserveAspectRatio="xMidYMid meet"
+                style={{
+                    width: "100%",
+                    height: "100%",
+                }}
+            >
                 <polygon points={points} fill="white" stroke="black" strokeWidth={2} />
                 {(isActiveButton.isInfo || isActiveButton.isAngle) && (
                     <>
@@ -113,7 +120,7 @@ const Description = () => {
 
 const IsoscelesTriangle = () => {
 
-    const { descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -132,86 +139,103 @@ const IsoscelesTriangle = () => {
 
     }, [isActiveButton.isAngle, isActiveButton.isInfo, isActiveButton.isSide])
     return (
-        <div style={{
-            display: "flex",
-            position: "relative",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "20px",
-            width: "100%",
-            height: "100%",
-        }}>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "100%",
+            }}
+        >
 
             {/* <Triangle label="Isosceles" points="150,0 240,280 60,280" isActiveButton={isActiveButton}
                 ismobile={ismobile} /> */}
+            <div
+                style={{
+                    flex: 1,
+                    minHeight: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                }}
+            >
+                <Triangle label="Isosceles Triangle"
+                    points="180,40 300,260 60,260"
+                    isActiveButton={isActiveButton}
+                    ismobile={ismobile} />
 
-            <Triangle label="Isosceles Triangle" points="180,40 300,260 60,260" isActiveButton={isActiveButton}
-                ismobile={ismobile} />
-
-            {descriptionData.length > 0 &&
-                (<div
-                    style={{
-                        width: "auto",
-                        position: "absolute",
-                        right: ismaximized ? "7%" : "2%",  // 👉 Move 1px from the RIGHT side
-                        top: "30%",
-                        transform: "translateY(-50%)",
-                        textAlign: "center",
-                        fontSize: "18px",
-                        color: "#444",
-                        backgroundColor: "#f9f9f9",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        zIndex: isLiveClass ? 0 : 9999,
-                        width: ismaximized ? "300px" : "250px"
-                    }}
-                >
-                    <Description />
-                </div>)
-            }
-            <div style={{ display: "flex", bottom: "20px", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px", width: "full", height: "100px", borderRadius: "20px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", width: "full", gap: "20px" }}>
-
-                    <CommonButton value="Mark Congruent Sides"
-                        isActiveButton={isActiveButton.isSide}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`Two sides are equal.`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isSide: !prev.isSide
-                            }))
-                        }} />
-                    <CommonButton value="Mark Congruent Angles"
-                        isActiveButton={isActiveButton.isAngle}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`Base angles are equal.`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isAngle: !prev.isAngle
-                            }))
+                {descriptionData.length > 0 &&
+                    (<div
+                        style={{
+                            width: "auto",
+                            position: "absolute",
+                            right: ismaximized ? "7%" : "2%",  // 👉 Move 1px from the RIGHT side
+                            top: "30%",
+                            transform: "translateY(-50%)",
+                            textAlign: "center",
+                            fontSize: "18px",
+                            color: "#444",
+                            backgroundColor: "#f9f9f9",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            zIndex: isLiveClass ? 0 : 9999,
+                            width: ismaximized ? "300px" : "250px"
                         }}
-                    />
-                    <CommonButton value="Show Info"
-                        isActiveButton={isActiveButton.isInfo}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`
+                    >
+                        <Description />
+                    </div>)
+                }
+            </div>
+            <div
+                style={{
+                    flexShrink: 0,
+                    padding: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    gap: "20px",
+                }}
+            >
+
+                <CommonButton value="Mark Congruent Sides"
+                    isActiveButton={isActiveButton.isSide}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`Two sides are equal.`)
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isSide: !prev.isSide
+                        }))
+                    }} />
+                <CommonButton value="Mark Congruent Angles"
+                    isActiveButton={isActiveButton.isAngle}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`Base angles are equal.`)
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isAngle: !prev.isAngle
+                        }))
+                    }}
+                />
+                <CommonButton value="Show Info"
+                    isActiveButton={isActiveButton.isInfo}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`
                                 ● A classification by sides.<br/>
                                 ● Two of the three sides are equal.<br/>
                                 ● Angles opposite the equal sides (Base angles) are equal.
                                 `)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isInfo: !prev.isInfo
-                            }))
-                        }}
-                    />
-                </div>
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isInfo: !prev.isInfo
+                        }))
+                    }}
+                />
             </div>
+            {/* </div> */}
 
 
         </div>

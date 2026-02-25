@@ -91,9 +91,9 @@ const MainContent = ({ prop, handleDataTrack }) => {
       handleDataTrack(data)
     }
 
-  }, [descriptionData, isActiveButton, isLiveClass, role_name])
+  }, [descriptionData, isActiveButton, isLiveClass, role_name,trianglelist])
 
-  const isAccess = isLiveClass && role_name === "tutor"
+  const isAccess = isLiveClass ? isLiveClass && role_name === "tutor": true;
 
   return (
     <div

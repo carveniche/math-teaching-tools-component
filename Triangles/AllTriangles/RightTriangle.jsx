@@ -30,22 +30,27 @@ const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
     );
 
     return (
-        <div style={
-            {
+        <div
+            style={{
                 display: "flex",
                 flexDirection: "column",
-                margin: '10px',
                 backgroundColor: "white",
-                width: ismobile ? "100%" : "400px",
+                width: ismobile ? "100%" : "28%",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "400px",
-                height: "350px",
                 borderRadius: "30px",
-                cursor: 'pointer'
-
-            }}>
-            <svg width="250" height="300" viewBox="50 0 200 400">
+                height: "100%",
+            }}
+        >
+            {/* SVG scales automatically */}
+            <svg
+                viewBox="0 0 360 320"
+                preserveAspectRatio="xMidYMid meet"
+                style={{
+                    width: "100%",
+                    height: "100%",
+                }}
+            >
                 <polygon points={points} fill="white" stroke="black" strokeWidth={2} />
                 {(isActiveButton.isInfo || isActiveButton.isAngle) && (
                     <>
@@ -73,7 +78,7 @@ const Description = () => {
 
 const RightTriangle = () => {
 
-    const { descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -89,81 +94,97 @@ const RightTriangle = () => {
 
     }, [isActiveButton.isAngle, isActiveButton.isInfo])
     return (
-        <div style={{
-            display: "flex",
-            position: "relative",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "20px",
-            width: "100%",
-            height: "100%",
-        }}>
-            {/* <Triangle label="Right-Angled" points="50,150 150,150 50,50"
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "100%",
+            }}
+        >
+            {/* ---------- SVG AREA (Flexible) ---------- */}
+            <div
+                style={{
+                    flex: 1,
+                    minHeight: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                }}
+            >
+                {/* <Triangle label="Right-Angled" points="50,150 150,150 50,50"
                 isActiveButton={isActiveButton}
                 ismobile={ismobile}
             /> */}
-            <Triangle
-                label="Right Triangle"
-                points="80,280 280,280 80,80"
-                isActiveButton={isActiveButton}
-                ismobile={ismobile}
-            />
-            {descriptionData.length > 0 &&
-                (<div
-                    style={{
-                        width: "auto",
-                        position: "absolute",
-                        right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
-                        top: "30%",
-                        transform: "translateY(-50%)",
-                        textAlign: "center",
-                        fontSize: "18px",
-                        color: "#444",
-                        backgroundColor: "#f9f9f9",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        zIndex: isLiveClass ? 0 : 9999,
-                        width: ismaximized ? "300px" : "250px"
-                    }}
-                >
-                    <Description />
-                </div>)
-            }
-
-            <div style={{ display: "flex", bottom: "20px", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px", width: "full", height: "100px", borderRadius: "20px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", width: "full", gap: "20px" }}>
-
-
-                    <CommonButton value="Mark Angles"
-                        isActiveButton={isActiveButton.isAngle}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`One angle is a right angle <br/> (Angle equal to 90°).`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isAngle: !prev.isAngle
-                            }))
+                <Triangle
+                    label="Right Triangle"
+                    points="80,280 280,280 80,80"
+                    isActiveButton={isActiveButton}
+                    ismobile={ismobile}
+                />
+                {descriptionData.length > 0 &&
+                    (<div
+                        style={{
+                            width: "auto",
+                            position: "absolute",
+                            right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
+                            top: "30%",
+                            transform: "translateY(-50%)",
+                            textAlign: "center",
+                            fontSize: "18px",
+                            color: "#444",
+                            backgroundColor: "#f9f9f9",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            zIndex: isLiveClass ? 0 : 9999,
+                            width: ismaximized ? "300px" : "250px"
                         }}
-                    />
-                    <CommonButton value="Show Info"
-                        isActiveButton={isActiveButton.isInfo}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`● A classification by angles.<br/>
-                                                ● One angle is equal to 90°.<br/>
-                                                ● The triangle has exactly one right angle.`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isInfo: !prev.isInfo
-                            }))
-                        }}
-                    />
-                </div>
+                    >
+                        <Description />
+                    </div>)
+                }
             </div>
 
-        </div>
+            <div
+                style={{
+                    flexShrink: 0,
+                    padding: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    gap: "20px",
+                }}
+            >
+
+                <CommonButton value="Mark Angles"
+                    isActiveButton={isActiveButton.isAngle}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`One angle is a right angle <br/> (Angle equal to 90°).`)
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isAngle: !prev.isAngle
+                        }))
+                    }}
+                />
+                <CommonButton value="Show Info"
+                    isActiveButton={isActiveButton.isInfo}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`● A classification by angles.<br/>
+                                                ● One angle is equal to 90°.<br/>
+                                                ● The triangle has exactly one right angle.`)
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isInfo: !prev.isInfo
+                        }))
+                    }}
+                />
+            </div>
+
+
+        </div >
     )
 }
 

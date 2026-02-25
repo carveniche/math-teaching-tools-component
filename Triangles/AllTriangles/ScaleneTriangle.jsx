@@ -169,7 +169,7 @@ const Description = () => {
 
 const ScaleneTriangle = () => {
 
-    const { descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -189,93 +189,108 @@ const ScaleneTriangle = () => {
     }, [isActiveButton.isAngle, isActiveButton.isInfo, isActiveButton.isSide])
 
     return (
-        <div style={{
-            display: "flex",
-            position: "relative",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "20px",
-            width: "100%",
-            height: "100%",
-        }}>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "100%",
+            }}
+        >
+            {/* ---------- SVG AREA (Flexible) ---------- */}
+            <div
+                style={{
+                    flex: 1,
+                    minHeight: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                }}
+            >
 
-            {/* <Triangle label="Scalene" points="40,180 160,150 100,40"
+                {/* <Triangle label="Scalene" points="40,180 160,150 100,40"
                 isActiveButton={isActiveButton}
                 ismobile={ismobile}
             /> */}
-            <Triangle label="Scalene Triangle" points="100,180 260,150 180,40"
-                isActiveButton={isActiveButton}
-                ismobile={ismobile}
-            />
-            {descriptionData.length > 0 &&
-                (<div
-                    style={{
-                        width: "auto",
-                        position: "absolute",
-                        right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
-                        top: "30%",
-                        transform: "translateY(-50%)",
-                        textAlign: "center",
-                        fontSize: "18px",
-                        color: "#444",
-                        backgroundColor: "#f9f9f9",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        zIndex: isLiveClass ? 0 : 9999,
-                        width: ismaximized ? "300px" : "250px"
-                    }}
-                >
-                    <Description />
-                </div>)
-            }
-
-            <div style={{ display: "flex", bottom: "20px", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px", width: "full", height: "100px", borderRadius: "20px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", width: "full", gap: "20px" }}>
-
-                    <CommonButton value="Mark Sides"
-                        isActiveButton={isActiveButton.isSide}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`This triangle has 3 unequal sides.`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isSide: !prev.isSide
-                            }))
-                        }} />
-                    <CommonButton value="Mark Angles"
-                        isActiveButton={isActiveButton.isAngle}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`This triangle has 3 unequal angles.`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isAngle: !prev.isAngle
-                            }))
+                <Triangle label="Scalene Triangle" points="100,180 260,150 180,40"
+                    isActiveButton={isActiveButton}
+                    ismobile={ismobile}
+                />
+                {descriptionData.length > 0 &&
+                    (<div
+                        style={{
+                            width: "auto",
+                            position: "absolute",
+                            right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
+                            top: "30%",
+                            transform: "translateY(-50%)",
+                            textAlign: "center",
+                            fontSize: "18px",
+                            color: "#444",
+                            backgroundColor: "#f9f9f9",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            zIndex: isLiveClass ? 0 : 9999,
+                            width: ismaximized ? "300px" : "250px"
                         }}
-                    />
+                    >
+                        <Description />
+                    </div>)
+                }
+            </div>
+            <div
+                style={{
+                    flexShrink: 0,
+                    padding: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    gap: "20px",
+                }}
+            >
+                <CommonButton value="Mark Sides"
+                    isActiveButton={isActiveButton.isSide}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`This triangle has 3 unequal sides.`)
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isSide: !prev.isSide
+                        }))
+                    }} />
+                <CommonButton value="Mark Angles"
+                    isActiveButton={isActiveButton.isAngle}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`This triangle has 3 unequal angles.`)
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isAngle: !prev.isAngle
+                        }))
+                    }}
+                />
 
 
 
-                    <CommonButton value="Show Info"
-                        isActiveButton={isActiveButton.isInfo}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`● A classification by sides.<br/>
+                <CommonButton value="Show Info"
+                    isActiveButton={isActiveButton.isInfo}
+                    onClick={() => {
+                        playClickSound();
+                        setDescriptionData(`● A classification by sides.<br/>
                                                 ● All three sides are unequal.<br/>
                                                 ● All three angles are unequal
                                                 .`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isInfo: !prev.isInfo
-                            }))
-                        }}
-                    />
-                </div>
+                        setIsActiveButton((prev) => ({
+                            // ...prev,
+                            isInfo: !prev.isInfo
+                        }))
+                    }}
+                />
+
             </div>
 
-        </div>
+        </div >
     )
 }
 
