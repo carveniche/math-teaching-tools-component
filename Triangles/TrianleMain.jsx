@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TriangleProvider, useTriangleContext } from './ContextTriangle/ContextTriangle.jsx'
 import Setting from './Setting/Setting.jsx'
-import TriangleMaping from './AllTriangles/TriangleMaping.jsx'
+import TriangleMaping from './AllTriangles/TriangleMaping.jsx' 
 
 const TrianleMain = ({ prop, handleDataTrack = () => { }, StudentData }) => {
   return (
