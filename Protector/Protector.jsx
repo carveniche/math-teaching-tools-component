@@ -5,8 +5,9 @@ import Style1 from "./portalProtector.module.css"
 import Style2 from "./liveClassProtector.module.css"
 
 
-function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveClass }) {
-  const styles = isLiveClass ? Style2 : Style1;
+function Protector({ prop, trackAngle, handleDataTrack }) {
+  const { isLiveClass, role_name,accessType } = prop ?? {isLiveClass:false}
+  const styles =isLiveClass ? Style2 : Style1;
   const productorRef = useRef(null);
   const [visible, setVisible] = useState(true);
   const { angle, inputValue, error, handleInputChange, startDrag, toggleFullscreen } = useProtractorLogic(productorRef, trackAngle);
@@ -17,7 +18,7 @@ function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveC
     return () => clearTimeout(timer);
   }, []);
   useEffect(() => {
-    if (isLiveClass) {
+    if(isLiveClass) {
 
       handleDataTrack(angle)
     }
@@ -28,13 +29,15 @@ function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveC
   return (
     <div className={`${styles.mainParent} bg-white`}>
       <div className={`${styles.contentRoot}`}>
-        {role_name === "tutor" && (<div className={`${styles.logoDiv}`}>
+        {(role_name === "tutor" && isLiveClass) && (<div className={`${styles.logoDiv}`}>
           <ToogleButton />
         </div>)}
         <div className={`${styles.setContent}`}>
           <div className={`${styles.productorDiv}`}>
             <div className={`${styles.card}`} id="enable-full-screen">
-
+            {!isLiveClass && <div className="full-btn">
+                <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/full.png" alt="full-screen" onClick={toggleFullscreen} />
+              </div>}
               <div className={`${styles.protractorContainer}`} >
                 <img
                   // src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/Protractor.svg"
@@ -102,4 +105,4 @@ function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveC
   );
 }
 
-export default Productor;
+export default Protector;
