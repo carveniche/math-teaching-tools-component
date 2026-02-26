@@ -1,4 +1,4 @@
-.drag-me-two {
+.dragMeTwo {
   position: absolute;
   top: 90%;
   left: 90%;
@@ -8,31 +8,32 @@
   animation: shakeX 0.6s ease-in-out infinite;
 }
 
-.drag-me-two img {
+.dragMeTwo img {
   transform: translate(-50%, -50%) rotate(90deg);
   width: 10rem;
 }
 
-.main-parent {
+.mainParent {
   padding: 40px;
   max-width: 1600px;
   margin: 0 auto;
+  user-select: none;
 }
 
-.content-root {
+.contentRoot {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.logo-div {
+.logoDiv {
   /* margin-bottom: 40px; */
   position: absolute;
   left: 1rem;
   top: 0;
 }
 
-.logo-img {
+.logoImg {
   max-width: 250px;
   height: auto;
 }
@@ -50,7 +51,7 @@
   gap: 10px;
 }
 
-.set-content {
+.setContent {
   display: flex;
   flex-direction: row;
   margin-top: -1rem;
@@ -78,7 +79,7 @@
   user-select: none;
 }
 
-.needle-two {
+.needleTwo {
   position: absolute;
   bottom: 9.5px;
   left: 50%;
@@ -104,13 +105,13 @@
     filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.6)); 
   } */
 
-.all-scroll {
+.allScroll {
   cursor: all-scroll;
   cursor: grab;
 }
 
 
-.protractor-container {
+.protractorContainer {
   position: relative;
   width: 100%;
   max-width: 800px;
@@ -119,14 +120,14 @@
   touch-action: none;
 }
 
-.protractor-image {
+.protractorImage {
   width: 100%;
   height: auto;
   display: block;
 }
 
 /* Center Point */
-.center-point {
+.centerPoint {
   position: absolute;
   bottom: 2px;
   z-index: 10;
@@ -139,7 +140,7 @@
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
 }
 
-.error-message {
+.errorMessage {
   color: #ff4444;
   font-size: 1.4rem;
   font-weight: bold;
@@ -150,7 +151,7 @@
   border-radius: 6px;
 }
 
-.input-card {
+.inputCard {
   /* width: 100%; */
   display: flex;
   /* justify-content: center; */
@@ -160,12 +161,12 @@
   flex-direction: column;
 }
 
-.input-container {
+.inputContainer {
   display: flex;
   align-items: center;
 }
 
-.input-group {
+.inputGroup {
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
@@ -173,16 +174,23 @@
   /* padding: 8px; */
 }
 
-.productor-div {
+.productorDiv {
   width: 100%;
   cursor: default;
 }
 
-.cont-pa {
+.contPa {
   /* width: 50%; */
 }
+.fullBtn{
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-top: -1rem;
+}
 
-.time-input {
+.timeInput {
   width: 100px;
   padding: 12px;
   font-size: 1.4rem;
@@ -191,11 +199,11 @@
   text-align: center;
 }
 
-.input-error {
+.inputError {
   border-color: #ff4444;
 }
 
-.degree-symbol {
+.degreeSymbol {
   font-size: 1.4rem;
   position: absolute;
   /* margin-left: 6%;
@@ -205,7 +213,7 @@
   top: 0.3rem;
 }
 
-.time-in-words {
+.timeInWords {
   margin-top: 15px;
   font-size: 18px;
   text-align: center;
@@ -214,7 +222,7 @@
   min-height: 24px;
 }
 
-.card-clock-name {
+.cardClockName {
   width: 300px;
   /* height: 220px; */
   /* background-color: rgb(255, 255, 255); */
@@ -231,8 +239,8 @@
   color: palevioletred;
 }
 
-.time-input::-webkit-outer-spin-button,
-.time-input::-webkit-inner-spin-button {
+.timeInput::-webkit-outer-spin-button,
+.timeInput::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -241,12 +249,12 @@
   font-size: 20px;
 }
 
-.input-with-degree {
+.inputWithDegree {
   position: relative;
   display: inline-block;
 }
 
-.input-with-degree::after {
+.inputWithDegree::after {
   /* content: "°"; */
   position: absolute;
   right: 30px;
@@ -258,8 +266,22 @@
   font-weight: bolder;
 }
 
-.time-input {
-  /* padding-right: 30px;  */
+.timeInput {
+  /* margin-top: 20px; */
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  width: 100px;
+  /* border: 2px solid #ff7a18; */
+  border-radius: 0.375rem;
+  outline: none;
+  border: none;
+  background-color: rgb(249, 157, 188);
+  border-radius: 10px;
+  color: #fff;
+  font-family: Varela Round;
+  /* content: "°"; */
+
 }
 
 /* media query start */
@@ -270,7 +292,7 @@
     width: 100%;
   }
 
-  .productor-div {
+  .productorDiv {
     width: 100%;
   }
 
@@ -283,7 +305,7 @@
     width: 100%;
   }
 
-  .productor-div {
+  .productorDiv {
     width: 100%;
   }
 
@@ -305,7 +327,7 @@
     width: 100%;
   }
 
-  .productor-div {
+  .productorDiv {
     width: 100%;
   }
 
@@ -314,7 +336,7 @@
     height: 23rem;
   }
 
-  .needle-two {
+  .needleTwo {
     width: 5px;
     height: 23rem;
 
@@ -324,7 +346,7 @@
 
 
 @media (max-width: 768px) {
-  .main-parent {
+  .mainParent {
     padding: 25px;
   }
 
@@ -339,22 +361,22 @@
     height: 9.5rem;
   }
 
-  .protractor-container {
+  .protractorContainer {
     max-width: 400px;
   }
 
-  .logo-img {
+  .logoImg {
     max-width: 200px;
   }
 
-  .time-input {
+  .timeInput {
 
     margin: 0;
     width: 90px;
     font-size: 1.2rem;
   }
 
-  .productor-div {
+  .productorDiv {
     width: 100%;
   }
 
@@ -362,7 +384,7 @@
 }
 
 @media (max-width: 700px) {
-  .main-parent {
+  .mainParent {
     padding: 25px;
   }
 
@@ -374,7 +396,7 @@
 }
 
 @media (max-width: 600px) {
-  .main-parent {
+  .mainParent {
     padding: 20px;
   }
 
@@ -384,7 +406,7 @@
     /* width: 87%; */
   }
 
-  .card-clock-name {
+  .cardClockName {
     width: 200px;
 
   }
@@ -394,20 +416,20 @@
     height: 6.5rem;
   }
 
-  .protractor-container {
+  .protractorContainer {
     max-width: 350px;
   }
 
-  .logo-img {
+  .logoImg {
     max-width: 180px;
   }
 
-  .time-input {
+  .timeInput {
     /* width: 80px; */
     font-size: 1.1rem;
   }
 
-  .set-content {
+  .setContent {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -433,7 +455,7 @@
     margin-left: 10px;
   }
 
-  .productor-div {
+  .productorDiv {
     width: 100%;
   }
 }

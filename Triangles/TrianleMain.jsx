@@ -109,7 +109,7 @@ const MainContent = ({ prop, handleDataTrack }) => {
         padding: isLiveClass ? "" : '20px 0px 20px 0px',
         justifyContent: 'center',
         borderRadius: "16px",
-        alignItems: 'center',
+        alignItems: isLiveClass ? 'center':"",
         backgroundImage: "url('https://d3g74fig38xwgn.cloudfront.net/teaching-tool/backgroundImages.jpg')",
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

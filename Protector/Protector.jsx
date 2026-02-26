@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useProtractorLogic } from "./productorLogic";
-import ToogleButton from "../../CommonComponent/ToogleButton";
+// import ToogleButton from "../../CommonComponent/ToogleButton";
 import Style1 from "./portalProtector.module.css"
 import Style2 from "./liveClassProtector.module.css"
 
 
-function Protector({ prop, trackAngle, handleDataTrack }) {
-  const { isLiveClass, role_name,accessType } = prop ?? {isLiveClass:false}
-  const styles =isLiveClass ? Style2 : Style1;
+function Protector({ prop, trackAngle, handleDataTrack = () => { } }) {
+  const {
+    isLiveClass = false,
+    role_name,
+    accessType
+  } = prop ?? {};
+  const styles = isLiveClass ? Style2 : Style1;
+  useEffect(()=>{
+    console.log("Style1:", styles);
+    console.log(isLiveClass,"isLiveClass")
+  },[isLiveClass])
   const productorRef = useRef(null);
   const [visible, setVisible] = useState(true);
   const { angle, inputValue, error, handleInputChange, startDrag, toggleFullscreen } = useProtractorLogic(productorRef, trackAngle);
@@ -18,29 +26,40 @@ function Protector({ prop, trackAngle, handleDataTrack }) {
     return () => clearTimeout(timer);
   }, []);
   useEffect(() => {
-    if(isLiveClass) {
+    if (isLiveClass) {
 
       handleDataTrack(angle)
     }
   }, [angle, isLiveClass])
 
-  const isAccess = (role_name === "tutor" && accessType === "teacher") || (role_name !== "tutor" && accessType === "student");
+  const isAccess = isLiveClass ? (role_name === "tutor" && accessType === "teacher") || (role_name !== "tutor" && accessType === "student") : true;
 
   return (
     <div className={`${styles.mainParent} bg-white`}>
       <div className={`${styles.contentRoot}`}>
-        {(role_name === "tutor" && isLiveClass) && (<div className={`${styles.logoDiv}`}>
+        {/* {(role_name === "tutor" && isLiveClass) && (<div className={`${styles.logoDiv}`}>
           <ToogleButton />
-        </div>)}
+        </div>)} */}
         <div className={`${styles.setContent}`}>
           <div className={`${styles.productorDiv}`}>
             <div className={`${styles.card}`} id="enable-full-screen">
-            {!isLiveClass && <div className="full-btn">
+              {!isLiveClass && <div className={`${styles.fullBtn}`}>
                 <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/full.png" alt="full-screen" onClick={toggleFullscreen} />
               </div>}
+
+              <div className={`${styles.cardHeader}`} style={{ marginTop: "-3rem" }}>
+                <h2
+                  className="h4-large"
+                  style={{
+                    color: error ? "#f75e5e" : undefined,
+                  }}
+                >
+                  {error ? error : <span className={`${styles.title} h3`} style={{ color: 'pink' }}></span>}
+                </h2>
+              </div>
+
               <div className={`${styles.protractorContainer}`} >
                 <img
-                  // src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/Protractor.svg"
                   src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/protracterimage.png"
                   className={`${styles.protractorImage}`}
                   alt="Protractor"
@@ -77,8 +96,10 @@ function Protector({ prop, trackAngle, handleDataTrack }) {
 
               <div className={`${styles.inputCard}`} style={{ padding: "0.5rem", flexDirection: "row" }}>
                 <p style={{ margin: '0', padding: "10px" }} className={`${styles.h4Large}`}>Enter Angle</p>
-                <div className={`${styles.inputContainer}`} style={{ background: "rgb(249, 157, 188)", width: "100%", borderRadius: "1rem", }}>
-                  <div className="" style={{ display: 'flex', justifyContent: 'center', alignItems: "start", background: "rgb(249, 157, 188)", width: "100%", padding: "1rem", borderRadius: "1rem" }}>
+                <div className={`${styles.inputContainer}`}
+                  style={{ background: "rgb(249, 157, 188)", width: "100%", borderRadius: "1rem", }}>
+                  <div className=""
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: "start", background: "rgb(249, 157, 188)", width: "100%", padding: "1rem", borderRadius: "1rem" }}>
                     <input
                       type="number"
                       className={`${styles.timeInput} ${error ? `${styles.inputError}` : ""}`}
