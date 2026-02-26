@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TriangleProvider, useTriangleContext } from './ContextTriangle/ContextTriangle.jsx'
 import Setting from './Setting/Setting.jsx'
-// import EquilateralTriangle from './AllTriangles/EquilateralTriangle'
 import TriangleMaping from './AllTriangles/TriangleMaping.jsx'
 
-const TrianleMain = ({ prop ={}, handleDataTrack=()=>{} ,StudentData={} }) => {
+const TrianleMain = ({ prop, handleDataTrack = () => { }, StudentData }) => {
   return (
     <TriangleProvider StudentData={StudentData}>
       <MainContent prop={prop} handleDataTrack={handleDataTrack} />
@@ -19,8 +18,11 @@ const MainContent = ({ prop, handleDataTrack }) => {
   const settingRef = useRef(null);
   useEffect(() => {
     const { isLiveClass, role_name } = prop ?? {}
-    setIsLiveClass(isLiveClass)
-    setRoleName(role_name)
+    if (isLiveClass) {
+      setIsLiveClass(isLiveClass)
+      setRoleName(role_name)
+    }
+
   }, [prop, setIsLiveClass, setRoleName])
 
 
@@ -91,9 +93,9 @@ const MainContent = ({ prop, handleDataTrack }) => {
       handleDataTrack(data)
     }
 
-  }, [descriptionData, isActiveButton, isLiveClass, role_name,trianglelist])
+  }, [descriptionData, isActiveButton, isLiveClass, role_name, trianglelist])
 
-  const isAccess = isLiveClass ? isLiveClass && role_name === "tutor": true;
+  const isAccess = isLiveClass ? isLiveClass && role_name === "tutor" : true;
 
   return (
     <div
@@ -107,7 +109,7 @@ const MainContent = ({ prop, handleDataTrack }) => {
         padding: isLiveClass ? "" : '20px 0px 20px 0px',
         justifyContent: 'center',
         borderRadius: "16px",
-        // alignItems: 'center',
+        alignItems: 'center',
         backgroundImage: "url('https://d3g74fig38xwgn.cloudfront.net/teaching-tool/backgroundImages.jpg')",
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

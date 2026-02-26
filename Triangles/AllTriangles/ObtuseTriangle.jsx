@@ -8,7 +8,7 @@ import { playClickSound } from '../../utils/playSound';
 
 
 const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
-     const { isLiveClass } = useTriangleContext();
+    const { isLiveClass } = useTriangleContext();
     const [p1, p2, p3] = points.split(' ').map(p => {
         const [x, y] = p.split(',').map(Number);
         return { x, y };
@@ -58,14 +58,25 @@ const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
                 flexDirection: "column",
                 margin: '10px',
                 backgroundColor: "white",
-                width: isLiveClass ? "28%" : ismobile ? "100%" : "400px",
+                width: isLiveClass ? "30%": ismobile ? "100%" : "400px",
                 justifyContent: "flex-start",
                 alignItems: "center",
-                height: "310px",
+                height: isLiveClass ? "100%" : "350px",
                 borderRadius: "30px",
                 cursor: 'pointer'
             }}>
-            <svg width="360" height="250" viewBox="30 150 400 200"  >
+
+            <svg
+                viewBox="50 100 400 300"
+                preserveAspectRatio="xMidYMid meet"
+                style={{
+                    width: "100%",
+                    height: "100%",
+                }}
+            >
+
+
+                {/* <svg width="360" height="250" viewBox="30 150 400 200"  > */}
                 <polygon points={points} fill="white" stroke="black" strokeWidth={2} />
                 {(isActiveButton.isInfo || isActiveButton.isAngle) && (
                     <>
@@ -130,34 +141,34 @@ const ObtuseTriangle = () => {
                 }}
             >
 
-            <Triangle
-                label="Obtuse Triangle"
-                points="75,325 425,325 250,225"
+                <Triangle
+                    label="Obtuse Triangle"
+                    points="75,325 425,325 250,225"
 
-                isActiveButton={isActiveButton}
-                ismobile={ismobile}
-            />
-            {descriptionData.length > 0 &&
-                (<div
-                    style={{
-                        width: "auto",
-                        position: "absolute",
-                        right: isLiveClass ? "2%": ismaximized ? "7%" : "3%",  // 👉 Move 1px from the RIGHT side
-                        // top: "30%",
-                        // transform: "translateY(-50%)",
-                        textAlign: "center",
-                        fontSize: "18px",
-                        color: "#444",
-                        backgroundColor: "#f9f9f9",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        zIndex: isLiveClass ? 0 : 9999,
-                        width: ismaximized ? "300px" : "250px"
-                    }}
-                >
-                    <Description />
-                </div>)
-            }
+                    isActiveButton={isActiveButton}
+                    ismobile={ismobile}
+                />
+                {descriptionData.length > 0 &&
+                    (<div
+                        style={{
+                            width: "auto",
+                            position: "absolute",
+                            right: isLiveClass ? "2%" : ismaximized ? "7%" : "3%",  // 👉 Move 1px from the RIGHT side
+                            // top: "30%",
+                            // transform: "translateY(-50%)",
+                            textAlign: "center",
+                            fontSize: "18px",
+                            color: "#444",
+                            backgroundColor: "#f9f9f9",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            zIndex: isLiveClass ? 0 : 9999,
+                            width: ismaximized ? "300px" : "250px"
+                        }}
+                    >
+                        <Description />
+                    </div>)
+                }
             </div>
 
             <div

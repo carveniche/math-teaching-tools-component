@@ -120,7 +120,7 @@ const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
                 flexDirection: "column",
                 margin: '10px',
                 backgroundColor: "white",
-                width: isLiveClass ? "28%" : ismobile ? "100%" : "400px",
+                width: isLiveClass ? "30%" : ismobile ? "100%" : "400px",
                 justifyContent: "center",
                 alignItems: "center",
                 height: "320px",
