@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useProtractorLogic } from "./productorLogic";
-// import ToogleButton from "../../CommonComponent/ToogleButton";
 import Style1 from "./portalProtector.module.css"
 import Style2 from "./liveClassProtector.module.css"
 
@@ -12,10 +11,6 @@ function Protector({ prop, trackAngle, handleDataTrack = () => { } }) {
     accessType
   } = prop ?? {};
   const styles = isLiveClass ? Style2 : Style1;
-  useEffect(()=>{
-    console.log("Style1:", styles);
-    console.log(isLiveClass,"isLiveClass")
-  },[isLiveClass])
   const productorRef = useRef(null);
   const [visible, setVisible] = useState(true);
   const { angle, inputValue, error, handleInputChange, startDrag, toggleFullscreen } = useProtractorLogic(productorRef, trackAngle);
@@ -35,11 +30,8 @@ function Protector({ prop, trackAngle, handleDataTrack = () => { } }) {
   const isAccess = isLiveClass ? (role_name === "tutor" && accessType === "teacher") || (role_name !== "tutor" && accessType === "student") : true;
 
   return (
-    <div className={`${styles.mainParent} bg-white`}>
+    <div className={`${styles.mainParent}`}>
       <div className={`${styles.contentRoot}`}>
-        {/* {(role_name === "tutor" && isLiveClass) && (<div className={`${styles.logoDiv}`}>
-          <ToogleButton />
-        </div>)} */}
         <div className={`${styles.setContent}`}>
           <div className={`${styles.productorDiv}`}>
             <div className={`${styles.card}`} id="enable-full-screen">
