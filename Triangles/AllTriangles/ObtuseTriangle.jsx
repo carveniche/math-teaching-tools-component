@@ -8,6 +8,7 @@ import { playClickSound } from '../../utils/playSound';
 
 
 const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
+     const { isLiveClass } = useTriangleContext();
     const [p1, p2, p3] = points.split(' ').map(p => {
         const [x, y] = p.split(',').map(Number);
         return { x, y };
@@ -57,7 +58,7 @@ const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
                 flexDirection: "column",
                 margin: '10px',
                 backgroundColor: "white",
-                width: ismobile ? "100%" : "400px",
+                width: isLiveClass ? "28%" : ismobile ? "100%" : "400px",
                 justifyContent: "flex-start",
                 alignItems: "center",
                 height: "310px",
@@ -141,9 +142,9 @@ const ObtuseTriangle = () => {
                     style={{
                         width: "auto",
                         position: "absolute",
-                        right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
-                        top: "30%",
-                        transform: "translateY(-50%)",
+                        right: isLiveClass ? "2%": ismaximized ? "7%" : "3%",  // 👉 Move 1px from the RIGHT side
+                        // top: "30%",
+                        // transform: "translateY(-50%)",
                         textAlign: "center",
                         fontSize: "18px",
                         color: "#444",

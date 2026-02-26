@@ -176,11 +176,10 @@ const AcuteTriangle = () => {
                 {descriptionData.length > 0 &&
                     (<div
                         style={{
-                            width: "auto",
                             position: "absolute",
-                            right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
-                            top: "30%",
-                            transform: "translateY(-50%)",
+                            right: isLiveClass ? "2%": ismaximized ? "7%" : "3%", // 👉 Move 1px from the RIGHT side
+                            // top: "30%",
+                            // transform: "translateY(-50%)",
                             textAlign: "center",
                             fontSize: "18px",
                             color: "#444",

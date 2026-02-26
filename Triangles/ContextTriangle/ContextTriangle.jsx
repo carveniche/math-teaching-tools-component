@@ -47,10 +47,10 @@ export const TriangleProvider = ({ children, StudentData }) => {
   const isAccess = isLiveClass
 
   useEffect(() => {
-    if (isAccess) {
+    // if (isAccess) {
       setIsActiveButton(defaultActiveButton);
       setDescriptionData("");
-    }
+    // }
 
   }, [trianglelist,]);
 

@@ -4,7 +4,7 @@ import Setting from './Setting/Setting.jsx'
 // import EquilateralTriangle from './AllTriangles/EquilateralTriangle'
 import TriangleMaping from './AllTriangles/TriangleMaping.jsx'
 
-const TrianleMain = ({ prop, handleDataTrack ,StudentData }) => {
+const TrianleMain = ({ prop ={}, handleDataTrack=()=>{} ,StudentData={} }) => {
   return (
     <TriangleProvider StudentData={StudentData}>
       <MainContent prop={prop} handleDataTrack={handleDataTrack} />

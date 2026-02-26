@@ -9,6 +9,7 @@ import { playClickSound } from "../../utils/playSound";
 /* ---------------- TRIANGLE SVG COMPONENT ---------------- */
 
 const Triangle = ({ label, ismobile, points, isActiveButton }) => {
+    const { isLiveClass } = useTriangleContext();
     const [p1, p2, p3] = points.split(" ").map((p) => {
         const [x, y] = p.split(",").map(Number);
         return { x, y };
@@ -76,11 +77,11 @@ const Triangle = ({ label, ismobile, points, isActiveButton }) => {
                 display: "flex",
                 flexDirection: "column",
                 backgroundColor: "white",
-                width: ismobile ? "100%" : "28%",
+                width: isLiveClass ? "28%" : ismobile ? "100%" : "400px",
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: "30px",
-                height: "100%",
+                height: isLiveClass ? "100%" : "350px",
             }}
         >
             {/* SVG scales automatically */}
@@ -185,9 +186,9 @@ const EquilateralTriangle = () => {
                     <div
                         style={{
                             position: "absolute",
-                            right: ismaximized ? "7%" : "2%",
-                            top: "30%",
-                            transform: "translateY(-50%)",
+                            right: isLiveClass ? "2%": ismaximized ? "7%" : "3%",
+                            // top: "30%",
+                            // transform: "translateY(-50%)",
                             backgroundColor: "#f9f9f9",
                             padding: "10px",
                             borderRadius: "10px",
@@ -218,7 +219,7 @@ const EquilateralTriangle = () => {
                         playClickSound();
                         setDescriptionData("This triangle has 3 equal sides.");
                         setIsActiveButton((prev) => ({
-                            ...prev,
+                            // ...prev,
                             isSide: !prev.isSide,
                         }));
                     }}
@@ -233,7 +234,7 @@ const EquilateralTriangle = () => {
                             "This triangle has 3 equal angles, each measuring 60°."
                         );
                         setIsActiveButton((prev) => ({
-                            ...prev,
+                            // ...prev,
                             isAngle: !prev.isAngle,
                         }));
                     }}
@@ -250,7 +251,7 @@ const EquilateralTriangle = () => {
               ● All three angles are equal (each 60°).
             `);
                         setIsActiveButton((prev) => ({
-                            ...prev,
+                            // ...prev,
                             isInfo: !prev.isInfo,
                         }));
                     }}
