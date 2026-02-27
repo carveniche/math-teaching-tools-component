@@ -160,7 +160,7 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 };
 
 const Parallelogram = () => {
-    const { isMax,isActiveButton, setIsActiveButton,data, setData } = useQuadrilateralContext();
+    const { isMax,isActiveButton, setIsActiveButton,data, setData , isLiveClass} = useQuadrilateralContext();
     
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isParSide: false,
@@ -214,7 +214,7 @@ const Parallelogram = () => {
                         backgroundColor: "#f9f9f9",
                         padding: "10px",
                         borderRadius: "10px",
-                        zIndex: 9999,
+                        zIndex: isLiveClass ? 0 : 9999,
                         width: window.screen.width >= 1440 ? "300px": isMax ? "300px":"250px"
                     }}
                 >

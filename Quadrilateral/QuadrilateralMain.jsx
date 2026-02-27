@@ -174,7 +174,7 @@ const MainContent = ({ prop, handleDataTrack }) => {
           bottom: 0,
           left: 0,
           width: '100%',
-          zIndex: 999,
+          zIndex: isLiveClass ? "" : 999,
           transform: state.toggleSetting ? 'translateY(0)' : 'translateY(100%)',
           transition: 'transform 0.5s ease-in-out',
         }}
