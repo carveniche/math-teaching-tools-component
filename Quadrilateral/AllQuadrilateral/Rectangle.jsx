@@ -278,7 +278,7 @@ const Rectangle = () => {
             {data.length > 0 &&
                 (<div
                     style={{
-                        width: "auto",
+                        // width: "auto",
                         position: "absolute",
                         right: isMax ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
                         top: isMax ? "35%" : "30%",

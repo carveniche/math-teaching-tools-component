@@ -151,7 +151,7 @@ const ObtuseTriangle = () => {
                 {descriptionData.length > 0 &&
                     (<div
                         style={{
-                            width: "auto",
+                            // width: "auto",
                             position: "absolute",
                             right: isLiveClass ? "2%" : ismaximized ? "7%" : "3%",  // 👉 Move 1px from the RIGHT side
                             // top: "30%",
