@@ -113,7 +113,7 @@ const MainContent = ({ prop, handleDataTrack }) => {
         overflow: 'hidden',
         justifyContent: 'center',
         borderRadius: isLiveClass ? "" : "16px",
-        // alignItems: 'center',
+        alignItems: isLiveClass ? 'center': "",
         backgroundImage: "url('https://d3g74fig38xwgn.cloudfront.net/teaching-tool/backgroundImages.jpg')",
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -139,6 +139,7 @@ const MainContent = ({ prop, handleDataTrack }) => {
           marginTop: isLiveClass ? "" : "20px",
           height: '100%',
           width: '100%',
+         
         }}
       >
         <QuadrilateralMaping finalSelected={finalSelected} />

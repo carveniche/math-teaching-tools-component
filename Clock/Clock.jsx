@@ -4,8 +4,13 @@ import { createClockNumbers, timeToWords } from "./Clock";
 import styles1 from "./liveClass.module.css";
 import styles2 from "./portalClock.module.css";
 
-const Clock = ({ handleDataTrack, role_name, StudentClockData, isLiveClass }) => {
+const Clock = ({ handleDataTrack, prop }) => {
 
+    const {
+        isLiveClass = false,
+        role_name,
+        StudentClockData
+    } = prop ?? {};
     const style = isLiveClass ? styles1 : styles2;
     const [time, setTime] = useState({ hours: 12, minutes: 0, seconds: 0 });
     const [hourInput, setHourInput] = useState("12");
