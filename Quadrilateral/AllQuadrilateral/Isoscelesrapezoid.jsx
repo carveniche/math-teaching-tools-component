@@ -157,25 +157,9 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
     };
     const ticks = (
         <>
-            {/* --- TOP SIDE (2 ticks) --- */}
-            {/* {drawTick({ x: mid(p2, p1).x + 3, y: mid(p1, p2).y + 1 }, 90)} */}
 
-            {/* --- RIGHT SIDE (1 tick) --- */}
             {drawTick({ x: mid(p2, p3).x + 2, y: mid(p2, p3).y + 5 }, getTickAngle(p3, p2))}
-            {/* {drawTick({ x: mid(p2, p3).x + 8, y: mid(p2, p3).y + 35 }, getTickAngle(p3, p2))} */} */}
-            {/* {/* --- BOTTOM SIDE (2 ticks) --- */}
-
-            {/* {drawTick({ x: mid(p4, p3).x + 2, y: mid(p3, p4).y + 1 }, 90)} */}
-            {/* {drawTick({ x: mid(p4, p3).x + 15, y: mid(p3, p4).y + 1 }, 90)} */}
-            {/* {drawTick({ x: mid(p4, p3).x + 20, y: mid(p3, p4).y + 1 }, 90)} */}
-
-
-            {/* --- LEFT SIDE (1 tick) --- */}
-            {/* {drawTick({ x: mid(p4, p1).x + 3, y: mid(p4, p1).y + 12 }, getTickAngle(p4, p1))} */}
             {drawTick({ x: mid(p4, p1).x, y: mid(p4, p1).y + 5 }, getTickAngle(p4, p1))}
-            {/* {drawTick({ x: mid(p4, p1).x - 2, y: mid(p4, p1).y + 26 }, getTickAngle(p4, p1))} */}
-            {/* {drawTick({ x: mid(p4, p1).x - 2, y: mid(p4, p1).y + 33 }, getTickAngle(p4, p1))} */}
-            {/* {drawTick({ x: mid(p4, p1).x - 2, y: mid(p4, p1).y + 39 }, getTickAngle(p4, p1))} */}
         </>
     );
 
@@ -249,7 +233,7 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 
 
 const Isoscelesrapezoid = () => {
-    const { isMax, isActiveButton, setIsActiveButton, data, setData,isLiveClass} = useQuadrilateralContext();
+    const { isMax, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isConAngle: false,
     //     isParAngle: false,
