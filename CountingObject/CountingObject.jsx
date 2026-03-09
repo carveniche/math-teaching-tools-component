@@ -39,7 +39,7 @@ const DraggableImage = ({ src, isAccess }) => {
 };
 
 /* ------------------------------------------------------- */
-const DraggableDroppedImage = ({ src, index, onRemove,isAccess }) => {
+const DraggableDroppedImage = ({ src, index, onRemove, isAccess }) => {
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: "dropped-image",
         item: { index, src },
@@ -49,7 +49,7 @@ const DraggableDroppedImage = ({ src, index, onRemove,isAccess }) => {
                 onRemove(item.index);
             }
         },
-        canDrag:()=>isAccess,
+        canDrag: () => isAccess,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         })
@@ -87,7 +87,7 @@ const DraggableDroppedImage = ({ src, index, onRemove,isAccess }) => {
 };
 
 /* ------------------------------------------------------- */
-const DroppableArea = ({ onDrop, droppedImages, onClear, onDropRemove,isAccess }) => {
+const DroppableArea = ({ onDrop, droppedImages, onClear, onDropRemove, isAccess }) => {
 
     const dropCountRef = useRef(droppedImages.length);
 
@@ -159,7 +159,7 @@ const DroppableArea = ({ onDrop, droppedImages, onClear, onDropRemove,isAccess }
                     cursor: "pointer",
                     fontSize: "clamp(24px,3vh,36px)",
                 }}
-                onClick={onClear}
+                onClick={isAccess ? onClear : undefined}
             >
                 <MdDeleteForever />
             </div>
@@ -337,7 +337,10 @@ const CountingObject = ({ prop, containerHeight, handleDataTrack }) => {
                             {imageOptions.map((img, index) => (
                                 <span
                                     key={index}
-                                    onClick={() => selectImgeHandler(img, index)}
+                                    onClick={() => {
+                                        if (!isTutor) return;
+                                        selectImgeHandler(img, index)
+                                    }}
                                     style={{
                                         border: '2px solid',
                                         borderColor: selectedImage.src === img ? '#3b82f6' : '#d1d5db',

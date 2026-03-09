@@ -1,17 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { generateFilledIndices, generateRandomEmoji } from './generateFilledIndices'; // Adjust path as needed
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
 
-const TenFrame = ({ prop,filledIndices ,randomEmoji,handlePlayAgainParent}) => {
+const TenFrame = ({ prop, filledIndices, randomEmoji, handlePlayAgainParent }) => {
     const { isLiveClass = false,
         role_name, } = prop
     const value = 10;
     const theme = useTheme();
     const ismobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    // const [filledIndices, setFilledIndices] = useState(() => generateFilledIndices(value));
-
 
     const [userInput, setUserInput] = useState('');
     const [result, setResult] = useState(null);
@@ -26,18 +22,11 @@ const TenFrame = ({ prop,filledIndices ,randomEmoji,handlePlayAgainParent}) => {
         }
     };
 
-
     const handlePlayAgain = () => {
         handlePlayAgainParent()
-        // setFilledIndices(generateFilledIndices(value));
         setUserInput('');
         setResult(null);
     };
-
-    // const randomEmoji = useMemo(() => {
-    //     void filledIndices;
-    //     return generateRandomEmoji();
-    // }, [filledIndices]);
 
 
     const toggleFullscreen = () => {
@@ -53,13 +42,14 @@ const TenFrame = ({ prop,filledIndices ,randomEmoji,handlePlayAgainParent}) => {
         }
     };
 
+    const isTutor = isLiveClass ? role_name === "tutor" ? true : false : true
 
     return (
         <div
             style={{
                 minHeight: "100%",
-                marginTop:  isLiveClass ? "" :'20px',
-                padding:  isLiveClass ? "" : '20px 0px 20px 0px',
+                marginTop: isLiveClass ? "" : '20px',
+                padding: isLiveClass ? "" : '20px 0px 20px 0px',
                 width: '100%',
                 display: 'flex',
                 borderRadius: "16px",
@@ -184,7 +174,7 @@ const TenFrame = ({ prop,filledIndices ,randomEmoji,handlePlayAgainParent}) => {
                                 outline: 'none',
                             }}
                         />
-                        <button
+                        {isTutor && <button
                             onClick={handleCheck}
                             style={{
                                 background: "linear-gradient(90deg, #3b82f6, #2563eb)",
@@ -211,7 +201,7 @@ const TenFrame = ({ prop,filledIndices ,randomEmoji,handlePlayAgainParent}) => {
                             className="text_body"
                         >
                             Check
-                        </button>
+                        </button>}
 
                     </div>
 
@@ -228,7 +218,7 @@ const TenFrame = ({ prop,filledIndices ,randomEmoji,handlePlayAgainParent}) => {
                         </div>
                     )}
 
-                    <button
+                    {isTutor && <button
                         onClick={handlePlayAgain}
                         style={{
                             background: "#8b5cf6",
@@ -255,7 +245,7 @@ const TenFrame = ({ prop,filledIndices ,randomEmoji,handlePlayAgainParent}) => {
                         className="text_body"
                     >
                         Reset
-                    </button>
+                    </button>}
                 </div>
             </div>
 

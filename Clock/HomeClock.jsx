@@ -2,14 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./clock.css";
 import { timeToWords } from "./Clock";
 
-/* ─────────────────────────────────────────────────────────────────
-   Everything is drawn inside one SVG with viewBox="0 0 200 200".
-   Centre is always cx=100, cy=100.
-   Hands are SVG <line> elements rotated with
-     transform="rotate(deg, 100, 100)"
-   so BOTH hands always pivot from the exact same point.
-   No image files are used for hands — no off-centre anchor issue.
-───────────────────────────────────────────────────────────────── */
+
 
 const CX = 100; // viewBox centre X
 const CY = 100; // viewBox centre Y
@@ -37,7 +30,6 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
         if (!el) return;
         const compute = () => {
             const { width, height } = el.getBoundingClientRect();
-            // label ~50px + inputs ~58px + gaps/padding ~50px = 158px reserved
             const byH = height - 158;
             const byW = width - 48;
             setClockSize(Math.max(100, Math.min(byH, byW)));
@@ -170,13 +162,12 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
         };
     });
 
-    // Hand: from tail (below centre) to tip (above centre), rotate around (CX,CY)
     const hourTip = CY - R * 0.55;  // hour hand tip y (unrotated = pointing up)
     const hourTail = CY + R * 0.15;  // hour hand tail y
     const minTip = CY - R * 0.80;  // minute hand tip y
     const minTail = CY + R * 0.18;  // minute hand tail y
 
-    // Minute hand tip position (for drag hint dot)
+   
     const minTipAngle = (minuteDeg - 90) * (Math.PI / 180);
     const minTipX = CX + R * 0.80 * Math.cos(minTipAngle);
     const minTipY = CY + R * 0.80 * Math.sin(minTipAngle);
@@ -255,7 +246,7 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
                     {/* Face */}
                     <circle cx={CX} cy={CY} r={R} fill="#fff9f9" />
 
-                    {/* Border ring — overflow:visible ensures stroke edges show */}
+                    
                     <circle cx={CX} cy={CY} r={R} fill="none" stroke="#f9a8d4" strokeWidth={6} />
 
                     {/* Ticks */}
@@ -281,11 +272,7 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
                     ))}
 
                     {/* ── HOUR HAND ──────────────────────────────────────── */}
-                    {/*
-            Line from (CX, hourTail) to (CX, hourTip), BOTH at x=CX.
-            rotate(hourDeg, CX, CY) spins it around the clock centre.
-            No image file. No separate anchor. Perfectly centred.
-          */}
+                 
                     <line
                         x1={CX} y1={hourTail}
                         x2={CX} y2={hourTip}
