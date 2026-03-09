@@ -275,8 +275,8 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 
 
 const Trapezoid = () => {
-        const { isMax,isActiveButton, setIsActiveButton,data, setData,isLiveClass } = useQuadrilateralContext();
-    
+    const { isMax,role_name, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
+
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isConAngle: false,
     //     isParAngle: false,
@@ -284,7 +284,7 @@ const Trapezoid = () => {
     //     isInfo: false
     // })
 
-//  const { isMax } = useQuadrilateralContext();
+    //  const { isMax } = useQuadrilateralContext();
     const theme = useTheme();
     const ismobile = useMediaQuery(theme.breakpoints.down("sm"));
     // const [data, setData] = useState("")
@@ -328,7 +328,7 @@ const Trapezoid = () => {
                         padding: "10px",
                         borderRadius: "10px",
                         zIndex: isLiveClass ? 0 : 9999,
-                        width: window.screen.width >= 1440 ? "300px": isMax ? "300px":"250px"
+                        width: window.screen.width >= 1440 ? "300px" : isMax ? "300px" : "250px"
                     }}
                 >
                     <Description data={data} />
@@ -349,6 +349,10 @@ const Trapezoid = () => {
                                 isParAngle: !prev.isParAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Angles"
                         isActiveButton={isActiveButton.isConAngle}
@@ -360,6 +364,10 @@ const Trapezoid = () => {
                                 isConAngle: !prev.isConAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Sides"
                         isActiveButton={isActiveButton.isConSide}
@@ -370,6 +378,10 @@ const Trapezoid = () => {
                                 // ...prev,
                                 isConSide: !prev.isConSide
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                     <CommonButton value="Show Info"
@@ -386,7 +398,12 @@ const Trapezoid = () => {
                                 // ...prev,
                                 isInfo: !prev.isInfo
                             }))
-                        }} />
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
+                    />
                 </div>
             </div>
 

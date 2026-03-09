@@ -238,7 +238,7 @@ const RectanglesSVG = ({ label, points, isActiveButton }) => {
 
 
 const Rectangle = () => {
-    const { isMax,isActiveButton, setIsActiveButton,data, setData, isLiveClass } = useQuadrilateralContext();
+    const { isMax,role_name, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
 
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isAngle: false,
@@ -312,6 +312,10 @@ const Rectangle = () => {
                                 isAngle: !prev.isAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Sides"
                         isActiveButton={isActiveButton.isCSide}
@@ -323,6 +327,10 @@ const Rectangle = () => {
                                 isCSide: !prev.isCSide
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Parallel Sides"
                         isActiveButton={isActiveButton.isSide}
@@ -333,6 +341,10 @@ const Rectangle = () => {
                                 // ...prev,
                                 isSide: !prev.isSide
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                     <CommonButton value="Show Info"
@@ -347,6 +359,10 @@ const Rectangle = () => {
                                 // ...prev,
                                 isInfo: !prev.isInfo
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                 </div>

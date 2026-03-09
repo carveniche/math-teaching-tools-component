@@ -103,7 +103,7 @@ const Description = () => {
 
 const ObtuseTriangle = () => {
 
-    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, role_name, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     useEffect(() => {
@@ -193,6 +193,10 @@ const ObtuseTriangle = () => {
                             isAngle: !prev.isAngle
                         }))
                     }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
+                    }}
                 />
                 <CommonButton value="Show Info"
                     isActiveButton={isActiveButton.isInfo}
@@ -206,6 +210,10 @@ const ObtuseTriangle = () => {
                             // ...prev,
                             isInfo: !prev.isInfo
                         }))
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
             </div>

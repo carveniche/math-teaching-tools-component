@@ -254,7 +254,7 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 
 
 const Square = () => {
-    const { isMax,isActiveButton, setIsActiveButton,data, setData,isLiveClass } = useQuadrilateralContext();
+    const { isMax,role_name, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isAngle: false,
     //     isCSide: false,
@@ -306,7 +306,7 @@ const Square = () => {
                         padding: "10px",
                         borderRadius: "10px",
                         zIndex: isLiveClass ? 0 : 9999,
-                        width: window.screen.width >= 1440 ? "300px": isMax ? "300px":"250px"
+                        width: window.screen.width >= 1440 ? "300px" : isMax ? "300px" : "250px"
                     }}
                 >
                     <Description data={data} />
@@ -327,6 +327,10 @@ const Square = () => {
                                 isAngle: !prev.isAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Sides"
                         isActiveButton={isActiveButton.isCSide}
@@ -338,6 +342,10 @@ const Square = () => {
                                 isCSide: !prev.isCSide
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Parallel Sides"
                         isActiveButton={isActiveButton.isSide}
@@ -348,6 +356,10 @@ const Square = () => {
                                 // ...prev,
                                 isSide: !prev.isSide
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                     <CommonButton value="Show Info"
@@ -362,6 +374,10 @@ const Square = () => {
                                 // ...prev,
                                 isInfo: !prev.isInfo
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                 </div>

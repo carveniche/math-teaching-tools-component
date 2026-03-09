@@ -10,7 +10,7 @@ import { playClickSound } from '../../utils/playSound';
 
 
 const Triangle = ({ label, ismobile, points, isActiveButton, }) => {
-     const { isLiveClass } = useTriangleContext();
+    const { isLiveClass } = useTriangleContext();
     const [p1, p2, p3] = points.split(' ').map(p => {
         const [x, y] = p.split(',').map(Number);
         return { x, y };
@@ -170,7 +170,7 @@ const Description = () => {
 
 const ScaleneTriangle = () => {
 
-    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, role_name, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -223,7 +223,7 @@ const ScaleneTriangle = () => {
                         style={{
                             // width: "auto",
                             position: "absolute",
-                            right: isLiveClass ? "2%": ismaximized ? "7%" : "3%",   // 👉 Move 1px from the RIGHT side
+                            right: isLiveClass ? "2%" : ismaximized ? "7%" : "3%",   // 👉 Move 1px from the RIGHT side
                             // top: "30%",
                             // transform: "translateY(-50%)",
                             textAlign: "center",
@@ -259,7 +259,12 @@ const ScaleneTriangle = () => {
                             // ...prev,
                             isSide: !prev.isSide
                         }))
-                    }} />
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
+                    }}
+                />
                 <CommonButton value="Mark Angles"
                     isActiveButton={isActiveButton.isAngle}
                     onClick={() => {
@@ -269,6 +274,10 @@ const ScaleneTriangle = () => {
                             // ...prev,
                             isAngle: !prev.isAngle
                         }))
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
 
@@ -286,6 +295,10 @@ const ScaleneTriangle = () => {
                             // ...prev,
                             isInfo: !prev.isInfo
                         }))
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
 

@@ -79,7 +79,7 @@ const Description = () => {
 
 const RightTriangle = () => {
 
-    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, role_name, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -168,6 +168,10 @@ const RightTriangle = () => {
                             isAngle: !prev.isAngle
                         }))
                     }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
+                    }}
                 />
                 <CommonButton value="Show Info"
                     isActiveButton={isActiveButton.isInfo}
@@ -180,6 +184,10 @@ const RightTriangle = () => {
                             // ...prev,
                             isInfo: !prev.isInfo
                         }))
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
             </div>

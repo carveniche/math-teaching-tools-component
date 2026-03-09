@@ -233,7 +233,7 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 
 
 const Isoscelesrapezoid = () => {
-    const { isMax, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
+    const { isMax,role_name, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isConAngle: false,
     //     isParAngle: false,
@@ -307,6 +307,10 @@ const Isoscelesrapezoid = () => {
                                 isParAngle: !prev.isParAngle
                             }))
                         }}
+                         data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Angles"
                         isActiveButton={isActiveButton.isConAngle}
@@ -318,6 +322,10 @@ const Isoscelesrapezoid = () => {
                                 isConAngle: !prev.isConAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Sides"
                         isActiveButton={isActiveButton.isConSide}
@@ -328,6 +336,10 @@ const Isoscelesrapezoid = () => {
                                 // ...prev,
                                 isConSide: !prev.isConSide
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                     <CommonButton value="Show Info"
@@ -342,7 +354,12 @@ const Isoscelesrapezoid = () => {
                                 // ...prev,
                                 isInfo: !prev.isInfo
                             }))
-                        }} />
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
+                    />
                 </div>
             </div>
 

@@ -73,7 +73,7 @@ function Protector({ prop, trackAngle, handleDataTrack = () => { } }) {
                     {/* <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/rightArrow.png" alt="arrow" style={{position:"absolute"}}/> */}
                     <span style={{ width: "1rem", height: "1rem", background: "linear-gradient(180deg, #ffff 0%, blue 100%)", position: "absolute", borderRadius: "50%", top: "1.5rem", left: "-7px" }}></span>
                   </div>
-                  {true && <p className={`${styles.dragMeTwo}`}><img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/drag.png" alt="Drag indicator" /></p>}
+                  {visible && <p className={`${styles.dragMeTwo}`}><img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/drag.png" alt="Drag indicator" /></p>}
                   <div className={`${styles.centerPoint}`} />
                   <div
                     className={`${styles.needleTwo}`}

@@ -1,8 +1,7 @@
 import React from 'react'
-import { useTriangleContext } from '../../ContextTriangle/ContextTriangle';
 
-const CommonButton = ({ value, onClick, isActiveButton }) => {
-    const { isLiveClass, role_name } = useTriangleContext();
+const CommonButton = ({ value, onClick, isActiveButton,data }) => {
+    const { isLiveClass, role_name } = data ?? {};
     const disabled = isLiveClass && role_name !== "tutor"
     return (
         <div onClick={!disabled ? onClick : undefined} style={{ userSelect: "none", display: "flex", backgroundColor: "skyblue", alignItems: "center", justifyContent: "center", gap: "10px", cursor: "pointer", padding: "10px", borderRadius: "20px" }} >

@@ -123,7 +123,7 @@ const Description = () => {
 
 const IsoscelesTriangle = () => {
 
-    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton, role_name, } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -173,7 +173,7 @@ const IsoscelesTriangle = () => {
                         style={{
                             // width: "auto",
                             position: "absolute",
-                            right: isLiveClass ? "2%": ismaximized ? "7%" : "3%",  // 👉 Move 1px from the RIGHT side
+                            right: isLiveClass ? "2%" : ismaximized ? "7%" : "3%",  // 👉 Move 1px from the RIGHT side
                             // top: "30%",
                             // transform: "translateY(-50%)",
                             textAlign: "center",
@@ -210,7 +210,12 @@ const IsoscelesTriangle = () => {
                             // ...prev,
                             isSide: !prev.isSide
                         }))
-                    }} />
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
+                    }}
+                />
                 <CommonButton value="Mark Congruent Angles"
                     isActiveButton={isActiveButton.isAngle}
                     onClick={() => {
@@ -220,6 +225,10 @@ const IsoscelesTriangle = () => {
                             // ...prev,
                             isAngle: !prev.isAngle
                         }))
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
                 <CommonButton value="Show Info"
@@ -235,6 +244,10 @@ const IsoscelesTriangle = () => {
                             // ...prev,
                             isInfo: !prev.isInfo
                         }))
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
             </div>

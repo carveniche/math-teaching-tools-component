@@ -156,8 +156,8 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
             {/* --- BOTTOM SIDE (2 ticks) --- */}
 
             {drawTick({ x: mid(p4, p3).x - 15, y: mid(p3, p4).y + 1 }, 90)}
-            {drawTick({ x: mid(p4, p3).x -10, y: mid(p3, p4).y + 1 }, 90)}
-            {drawTick({ x: mid(p4, p3).x -5, y: mid(p3, p4).y + 1 }, 90)}
+            {drawTick({ x: mid(p4, p3).x - 10, y: mid(p3, p4).y + 1 }, 90)}
+            {drawTick({ x: mid(p4, p3).x - 5, y: mid(p3, p4).y + 1 }, 90)}
 
 
             {/* --- LEFT SIDE (1 tick) --- */}
@@ -254,8 +254,8 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 
 
 const RightTrapezoid = () => {
-    const { isMax,isActiveButton, setIsActiveButton,data, setData,isLiveClass } = useQuadrilateralContext();
-    
+    const { isMax,role_name, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
+
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isConAngle: false,
     //     isParAngle: false,
@@ -329,6 +329,10 @@ const RightTrapezoid = () => {
                                 isParAngle: !prev.isParAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Angles"
                         isActiveButton={isActiveButton.isConAngle}
@@ -340,6 +344,10 @@ const RightTrapezoid = () => {
                                 isConAngle: !prev.isConAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Sides"
                         isActiveButton={isActiveButton.isConSide}
@@ -350,6 +358,10 @@ const RightTrapezoid = () => {
                                 // ...prev,
                                 isConSide: !prev.isConSide
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                     <CommonButton value="Show Info"
@@ -365,7 +377,12 @@ const RightTrapezoid = () => {
                                 // ...prev,
                                 isInfo: !prev.isInfo
                             }))
-                        }} />
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
+                    />
                 </div>
             </div>
 

@@ -235,8 +235,8 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 
 
 const Rhombus = () => {
-    const { isMax,isActiveButton, setIsActiveButton,data, setData,isLiveClass } = useQuadrilateralContext();
-    
+    const { isMax,role_name, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
+
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isPallSide: false,
     //     isInfo: false,
@@ -310,6 +310,10 @@ const Rhombus = () => {
                                 isPallSide: !prev.isPallSide
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Angles"
                         isActiveButton={isActiveButton.isConAngle}
@@ -321,6 +325,10 @@ const Rhombus = () => {
                                 isConAngle: !prev.isConAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Sides"
                         isActiveButton={isActiveButton.isConSide}
@@ -331,6 +339,10 @@ const Rhombus = () => {
                                 // ...prev,
                                 isConSide: !prev.isConSide
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                     <CommonButton value="Show Info"
@@ -345,6 +357,10 @@ const Rhombus = () => {
                                 // ...prev,
                                 isInfo: !prev.isInfo
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                 </div>

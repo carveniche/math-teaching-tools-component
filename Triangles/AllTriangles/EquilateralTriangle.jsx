@@ -140,6 +140,7 @@ const EquilateralTriangle = () => {
         isActiveButton,
         setIsActiveButton,
         isLiveClass,
+         role_name,
     } = useTriangleContext();
 
     const theme = useTheme();
@@ -186,7 +187,7 @@ const EquilateralTriangle = () => {
                     <div
                         style={{
                             position: "absolute",
-                            right: isLiveClass ? "2%": ismaximized ? "7%" : "3%",
+                            right: isLiveClass ? "2%" : ismaximized ? "7%" : "3%",
                             // top: "30%",
                             // transform: "translateY(-50%)",
                             backgroundColor: "#f9f9f9",
@@ -223,6 +224,10 @@ const EquilateralTriangle = () => {
                             isSide: !prev.isSide,
                         }));
                     }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
+                    }}
                 />
 
                 <CommonButton
@@ -237,6 +242,10 @@ const EquilateralTriangle = () => {
                             // ...prev,
                             isAngle: !prev.isAngle,
                         }));
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
 
@@ -254,6 +263,10 @@ const EquilateralTriangle = () => {
                             // ...prev,
                             isInfo: !prev.isInfo,
                         }));
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
             </div>

@@ -132,7 +132,7 @@ const Description = () => {
 
 const AcuteTriangle = () => {
 
-    const { isLiveClass, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
+    const { isLiveClass, role_name, descriptionData, setDescriptionData, ismaximized, isActiveButton, setIsActiveButton } = useTriangleContext();
 
 
     const theme = useTheme();
@@ -177,7 +177,7 @@ const AcuteTriangle = () => {
                     (<div
                         style={{
                             position: "absolute",
-                            right: isLiveClass ? "2%": ismaximized ? "7%" : "3%", // 👉 Move 1px from the RIGHT side
+                            right: isLiveClass ? "2%" : ismaximized ? "7%" : "3%", // 👉 Move 1px from the RIGHT side
                             // top: "30%",
                             // transform: "translateY(-50%)",
                             textAlign: "center",
@@ -195,7 +195,7 @@ const AcuteTriangle = () => {
                 }
             </div>
 
-            
+
             <div
                 style={{
                     flexShrink: 0,
@@ -217,6 +217,10 @@ const AcuteTriangle = () => {
                             isAngle: !prev.isAngle
                         }))
                     }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
+                    }}
                 />
                 <CommonButton value="Show Info"
                     isActiveButton={isActiveButton.isInfo}
@@ -229,6 +233,10 @@ const AcuteTriangle = () => {
                             // ...prev,
                             isInfo: !prev.isInfo
                         }))
+                    }}
+                    data={{
+                        isLiveClass: isLiveClass,
+                        role_name: role_name
                     }}
                 />
             </div>

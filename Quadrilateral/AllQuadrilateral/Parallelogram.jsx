@@ -160,8 +160,8 @@ const Quadrilateral = ({ label, points, isActiveButton }) => {
 };
 
 const Parallelogram = () => {
-    const { isMax,isActiveButton, setIsActiveButton,data, setData , isLiveClass} = useQuadrilateralContext();
-    
+    const { isMax,role_name, isActiveButton, setIsActiveButton, data, setData, isLiveClass } = useQuadrilateralContext();
+
     // const [isActiveButton, setIsActiveButton] = useState({
     //     isParSide: false,
     //     isInfo: false,
@@ -178,7 +178,7 @@ const Parallelogram = () => {
             setData("");
         }
     }, [isActiveButton]);
-  
+
     return (
         <div style={{
             display: "flex",
@@ -215,7 +215,7 @@ const Parallelogram = () => {
                         padding: "10px",
                         borderRadius: "10px",
                         zIndex: isLiveClass ? 0 : 9999,
-                        width: window.screen.width >= 1440 ? "300px": isMax ? "300px":"250px"
+                        width: window.screen.width >= 1440 ? "300px" : isMax ? "300px" : "250px"
                     }}
                 >
                     <Description data={data} />
@@ -237,6 +237,10 @@ const Parallelogram = () => {
                                 isParSide: !prev.isParSide
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
 
                     <CommonButton value="Mark Congruent Angles"
@@ -249,6 +253,10 @@ const Parallelogram = () => {
                                 isConAngle: !prev.isConAngle
                             }))
                         }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
+                        }}
                     />
                     <CommonButton value="Mark Congruent Sides"
                         isActiveButton={isActiveButton.isConSide}
@@ -260,6 +268,10 @@ const Parallelogram = () => {
                                 // isAngle: false,
                                 isConSide: !prev.isConSide
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                     <CommonButton value="Show Info"
@@ -275,6 +287,10 @@ const Parallelogram = () => {
                                 // ...prev,
                                 isInfo: !prev.isInfo
                             }))
+                        }}
+                        data={{
+                            isLiveClass: isLiveClass,
+                            role_name: role_name
                         }}
                     />
                 </div>
