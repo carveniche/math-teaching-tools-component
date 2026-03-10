@@ -35,19 +35,32 @@ function Protector({ prop, trackAngle, handleDataTrack = () => { } }) {
         <div className={`${styles.setContent}`}>
           <div className={`${styles.productorDiv}`}>
             <div className={`${styles.card}`} id="enable-full-screen">
-              {!isLiveClass && <div className={`${styles.fullBtn}`}>
+              {!isLiveClass && <div className={`${styles.fullBtn}`}
+                style={{
+                  position: "relative"
+                }}
+              >
                 <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/full.png" alt="full-screen" onClick={toggleFullscreen} />
               </div>}
-
-              <div className={`${styles.cardHeader}`} style={{ marginTop: "-3rem" }}>
-                <h2
-                  className="h4-large"
-                  style={{
-                    color: error ? "#f75e5e" : undefined,
-                  }}
-                >
-                  {error ? error : <span className={`${styles.title} h3`} style={{ color: 'pink' }}></span>}
-                </h2>
+              <div
+                className={styles.cardHeader}
+                style={{ position: "absolute", top: "20px" }}
+              >
+                {error && (
+                  <div
+                    style={{
+                      color: "#ff4d4f",
+                      background: "#fff1f0",
+                      fontSize: "20px",
+                      border: "1px solid #ffa39e",
+                      padding: "6px 10px",
+                      borderRadius: "4px",
+                      fontWeight: 800,
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
               </div>
 
               <div className={`${styles.protractorContainer}`} >

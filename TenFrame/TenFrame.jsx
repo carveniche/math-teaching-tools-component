@@ -1,268 +1,255 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from "@mui/material/styles";
+import React, { useEffect, useRef, useState } from 'react';
 
-const TenFrame = ({ prop, filledIndices, randomEmoji, handlePlayAgainParent }) => {
-    const { isLiveClass = false,
-        role_name, } = prop
-    const value = 10;
-    const theme = useTheme();
-    const ismobile = useMediaQuery(theme.breakpoints.down("sm"));
+const TenFrame = ({ prop, filledIndices, studentData, randomEmoji, handleDataTrack }) => {
+    const { isLiveClass = false, role_name } = prop;
 
     const [userInput, setUserInput] = useState('');
     const [result, setResult] = useState(null);
+    const [containerW, setContainerW] = useState(500);
 
+    // ── Container width ───────────────────────────────────────────
+    const containerRef = useRef(null);
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const ro = new ResizeObserver(([e]) => setContainerW(e.contentRect.width));
+        ro.observe(el);
+        setContainerW(el.clientWidth);
+        return () => ro.disconnect();
+    }, []);
+
+    const isMobile = containerW < 420;
+    const isTutor = isLiveClass ? role_name === 'tutor' : true;
+
+    
+    const userInputRef = useRef(userInput);
+    const filledIndicesRef = useRef(filledIndices);
+
+    useEffect(() => { userInputRef.current = userInput; }, [userInput]);
+    useEffect(() => { filledIndicesRef.current = filledIndices; }, [filledIndices]);
 
     const handleCheck = () => {
-        const userAnswer = parseInt(userInput);
-        if (!isNaN(userAnswer)) {
-            setResult(userAnswer === filledIndices.length);
-        } else {
-            setResult(false);
+        if (isLiveClass && role_name === 'tutor') {
+            handleDataTrack({ isFrom: 'clicked', isClicked: true });
         }
+        const answer = parseInt(userInputRef.current, 10);
+        const correct = filledIndicesRef.current.length;
+       
+        setResult(!isNaN(answer) ? answer === correct : false);
     };
 
+    useEffect(()=>{
+         if(!userInput && isLiveClass && role_name !== 'tutor'){
+            setResult(null)
+         }
+    },[userInput])
+
+    useEffect(() => {
+        if (isLiveClass && role_name === 'tutor') {
+            handleDataTrack({ isFrom: 'userInput', Value: userInput });
+        }
+    }, [userInput]);
+
+    useEffect(() => {
+        if (isLiveClass && role_name !== 'tutor' && studentData?.Value !== undefined) {
+            setUserInput(String(studentData.Value));
+        }
+    }, [studentData?.Value]);
+
+    const isClickedRef = useRef(false);
+    useEffect(() => {
+        if (!isLiveClass || role_name === 'tutor') return;
+        if (studentData?.isClicked !== true) return;
+        if (isClickedRef.current) return;
+
+        isClickedRef.current = true;
+        queueMicrotask(() => {
+            handleCheck();
+
+            setTimeout(() => { isClickedRef.current = false; }, 200);
+        });
+    }, [studentData?.isClicked]);
+
+    // ── Actions ───────────────────────────────────────────────────
     const handlePlayAgain = () => {
-        handlePlayAgainParent()
+        handleDataTrack({ isFrom: 'PlayAgain' });
         setUserInput('');
         setResult(null);
     };
 
-
     const toggleFullscreen = () => {
-        const fullScreenElem = document.getElementById('enable-full-screen');
+        const el = document.getElementById('enable-full-screen');
         if (!document.fullscreenElement) {
-            fullScreenElem?.requestFullscreen?.();
-            (fullScreenElem)?.webkitRequestFullscreen?.();
-            (fullScreenElem)?.msRequestFullscreen?.();
+            el?.requestFullscreen?.() || el?.webkitRequestFullscreen?.() || el?.msRequestFullscreen?.();
         } else {
-            document.exitFullscreen?.();
-            (document).webkitExitFullscreen?.();
-            (document).msExitFullscreen?.();
+            document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.msExitFullscreen?.();
         }
     };
 
-    const isTutor = isLiveClass ? role_name === "tutor" ? true : false : true
+    // ── Sizing ────────────────────────────────────────────────────
+    const cellSize = isMobile ? 50 : 60;
+    const emojiFs = isMobile ? '1.8rem' : '2.25rem';
+    const cardW = isMobile ? Math.min(containerW - 24, 320) : Math.min(containerW - 48, 440);
 
     return (
         <div
+            ref={containerRef}
+            id="enable-full-screen"
             style={{
-                minHeight: "100%",
-                marginTop: isLiveClass ? "" : '20px',
-                padding: isLiveClass ? "" : '20px 0px 20px 0px',
+                height: isLiveClass ? '100%' : "73vh",
                 width: '100%',
                 display: 'flex',
-                borderRadius: "16px",
-                height: isLiveClass ? "100%" : "100vh",
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '16px',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'bottom',
                 backgroundImage: "url('https://d3g74fig38xwgn.cloudfront.net/teaching-tool/backgroundImages.jpg')",
+                boxSizing: 'border-box',
+                padding: isLiveClass ? '8px' : '20px 8px',
+                position: 'relative',
+                overflow: 'hidden',
             }}
-            id='enable-full-screen'
         >
+            {/* Fullscreen button */}
+            {!isLiveClass && (
+                <div style={{ position: 'absolute', top: 10, right: 12, cursor: 'pointer', zIndex: 10 }}>
+                    <img
+                        src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/full.png"
+                        alt="full-screen"
+                        onClick={toggleFullscreen}
+                        style={{ width: 28, height: 28 }}
+                    />
+                </div>
+            )}
 
-            <div style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: 'center',
-                alignItems: "center",
-                height: "90%"
-            }} >
-                <div
-                    style={{
-                        backgroundColor: 'white',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                        borderRadius: '0.5rem',
-                        padding: '1.5rem',
-                        width: ismobile ? "305px" : '407px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        // height: '100%',
-                        // marginTop: '20px',
-                        alignItems: 'center',
-                        gap: '1.5rem',
-                        border: '2px solid #93c5fd',
-                    }}
-                >
-                    {/* <h2
-                        style={{
-                            fontSize: '1.875rem',
-                            fontWeight: '700',
-                            color: '#1d4ed8'
-                        }}
-                    >
-                        Ten Frames
-                    </h2> */}
-
-                    <div
-                        style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(5, 1fr)',
-                            gap: '0.5rem',
-                        }}
-                    >
-                        {Array.from({ length: value }, (_, index) => (
-                            <div
-                                key={index}
-                                style={{
-                                    width: ismobile ? '50px' : "60px",
-                                    height: ismobile ? '50px' : "60px",
-                                    border: '2px solid #6b7280',
-                                    borderRadius: '0.375rem',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: '#f9fafb',
-                                }}
-                            >
-                                {filledIndices.includes(index) && (
-                                    <div
-                                        style={{
-                                            fontSize: '2.25rem',
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                        {randomEmoji}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            marginTop: '0.5rem',
-                        }}
-                    >
-                        <label
+            {/* Card */}
+            <div
+                style={{
+                    backgroundColor: 'white',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    borderRadius: '0.75rem',
+                    padding: '1.5rem',
+                    width: cardW,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '1.25rem',
+                    border: '2px solid #93c5fd',
+                    boxSizing: 'border-box',
+                }}
+            >
+                {/* Ten-frame grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem' }}>
+                    {Array.from({ length: 10 }, (_, index) => (
+                        <div
+                            key={index}
                             style={{
-                                // fontSize: '1.125rem',
-                                fontWeight: '600',
-                                color: '#374151', // Tailwind's gray-700
-                            }}
-                            className='text_body'
-                        >
-                            How many?
-                        </label>
-                        <input
-                            type="text"
-                            value={userInput}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                if (value === '' || /^\d+$/.test(value)) {
-                                    setUserInput(value);
-                                }
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    handleCheck();
-                                }
-                            }}
-                            style={{
-                                width: '4rem',
-                                height: '2rem',
-                                border: '1px solid #9ca3af', // Tailwind's gray-400
+                                width: cellSize,
+                                height: cellSize,
+                                border: '2px solid #6b7280',
                                 borderRadius: '0.375rem',
-                                textAlign: 'center',
-                                fontSize: '1.125rem',
-                                fontWeight: '500',
-                                boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                                outline: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: '#f9fafb',
                             }}
-                        />
-                        {isTutor && <button
+                        >
+                            {filledIndices.includes(index) && (
+                                <span style={{ fontSize: emojiFs, textAlign: 'center' }}>
+                                    {randomEmoji}
+                                </span>
+                            )}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Input row */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <label style={{ fontWeight: 600, color: '#374151' }} className="text_body">
+                        How many?
+                    </label>
+
+                    <input
+                        type="text"
+                        value={userInput}
+                        onChange={e => {
+                            const v = e.target.value;
+                            if (v === '' || /^\d+$/.test(v)) setUserInput(v);
+                        }}
+                        onKeyDown={e => { if (e.key === 'Enter') handleCheck(); }}
+                        readOnly={!isTutor}
+                        style={{
+                            width: '4rem',
+                            height: '2rem',
+                            border: '1px solid #9ca3af',
+                            borderRadius: '0.375rem',
+                            textAlign: 'center',
+                            fontSize: '1.125rem',
+                            fontWeight: 500,
+                            outline: 'none',
+                            boxSizing: 'border-box',
+                        }}
+                    />
+
+                    {isTutor && (
+                        <button
                             onClick={handleCheck}
-                            style={{
-                                background: "linear-gradient(90deg, #3b82f6, #2563eb)",
-                                color: "white",
-                                padding: "0.5rem 1.4rem",
-                                borderRadius: "9999px",
-                                fontWeight: "600",
-                                letterSpacing: "0.5px",
-                                border: "none",
-                                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)",
-                                cursor: "pointer",
-                                transition: "all 0.25s ease",
-                            }}
-                            onMouseOver={(e) => {
-                                e.target.style.transform = "scale(1.05)";
-                                e.target.style.boxShadow = "0 6px 18px rgba(0, 0, 0, 0.25)";
-                                e.target.style.background = "linear-gradient(90deg, #2563eb, #1d4ed8)";
-                            }}
-                            onMouseOut={(e) => {
-                                e.target.style.transform = "scale(1)";
-                                e.target.style.boxShadow = "0 4px 14px rgba(0, 0, 0, 0.15)";
-                                e.target.style.background = "linear-gradient(90deg, #3b82f6, #2563eb)";
-                            }}
                             className="text_body"
+                            style={btnStyle('#3b82f6', '#2563eb')}
+                            onMouseOver={e => applyHover(e, '#2563eb', '#1d4ed8')}
+                            onMouseOut={e => applyHover(e, '#3b82f6', '#2563eb')}
                         >
                             Check
-                        </button>}
-
-                    </div>
-
-                    {result !== null && (
-                        <div
-                            style={{
-                                fontSize: '1.125rem',
-                                fontWeight: 'bold',
-                                marginTop: '0.5rem',
-                                color: result ? '#16a34a' : '#dc2626', // green-600 or red-600
-                            }}
-                        >
-                            {result ? '✅ Your answer is correct!' : '❌ Try again!'}
-                        </div>
+                        </button>
                     )}
+                </div>
 
-                    {isTutor && <button
+                {/* Result */}
+                {result !== null && (
+                    <div style={{ fontSize: '1.1rem', fontWeight: 'bold', color: result ? '#16a34a' : '#dc2626' }}>
+                        {result ? '✅ Your answer is correct!' : '❌ Try again!'}
+                    </div>
+                )}
+
+                {/* Reset */}
+                {isTutor && (
+                    <button
                         onClick={handlePlayAgain}
-                        style={{
-                            background: "#8b5cf6",
-                            color: "white",
-                            padding: "0.5rem 1.4rem",
-                            borderRadius: "9999px",
-                            fontWeight: "600",
-                            letterSpacing: "0.5px",
-                            border: "none",
-                            boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)",
-                            cursor: "pointer",
-                            transition: "all 0.25s ease",
-                        }}
-                        onMouseOver={(e) => {
-                            e.target.style.transform = "scale(1.05)";
-                            e.target.style.boxShadow = "0 6px 18px rgba(0, 0, 0, 0.25)";
-                            e.target.style.background = "#6F46D2";
-                        }}
-                        onMouseOut={(e) => {
-                            e.target.style.transform = "scale(1)";
-                            e.target.style.boxShadow = "0 4px 14px rgba(0, 0, 0, 0.15)";
-                            e.target.style.background = "#8b5cf6";
-                        }}
                         className="text_body"
+                        style={btnStyle('#8b5cf6', '#8b5cf6')}
+                        onMouseOver={e => applyHover(e, '#6F46D2', '#6F46D2')}
+                        onMouseOut={e => applyHover(e, '#8b5cf6', '#8b5cf6')}
                     >
                         Reset
-                    </button>}
-                </div>
+                    </button>
+                )}
             </div>
-
-
-
-            {!isLiveClass &&
-                <div
-                    style={{
-                        paddingRight: "10px",
-                        cursor: "pointer",
-                    }}
-                >
-                    <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/full.png" alt="full-screen" onClick={toggleFullscreen} />
-                </div>}
         </div>
-
     );
+};
+
+const btnStyle = (from, to) => ({
+    background: `linear-gradient(90deg, ${from}, ${to})`,
+    color: 'white',
+    padding: '0.5rem 1.4rem',
+    borderRadius: '9999px',
+    fontWeight: 600,
+    letterSpacing: '0.5px',
+    border: 'none',
+    boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
+    cursor: 'pointer',
+    transition: 'all 0.25s ease',
+});
+
+const applyHover = (e, from, to) => {
+    e.currentTarget.style.background = `linear-gradient(90deg, ${from}, ${to})`;
+    e.currentTarget.style.transform = e.type === 'mouseover' ? 'scale(1.05)' : 'scale(1)';
+    e.currentTarget.style.boxShadow = e.type === 'mouseover'
+        ? '0 6px 18px rgba(0,0,0,0.25)'
+        : '0 4px 14px rgba(0,0,0,0.15)';
 };
 
 export default TenFrame;

@@ -42,8 +42,9 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
 
     // ── Sync tutor → student ────────────────────────────────────────
     useEffect(() => {
-        if (role_name === "tutor" && isLiveClass)
+        if (role_name === "tutor" && isLiveClass && minuteInput !== '' && hourInput !== '') {
             handleDataTrack({ minute: minuteInput, hour: hourInput });
+        }
     }, [minuteInput, hourInput, role_name, isLiveClass]);
 
     useEffect(() => {
@@ -167,7 +168,7 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
     const minTip = CY - R * 0.80;  // minute hand tip y
     const minTail = CY + R * 0.18;  // minute hand tail y
 
-   
+
     const minTipAngle = (minuteDeg - 90) * (Math.PI / 180);
     const minTipX = CX + R * 0.80 * Math.cos(minTipAngle);
     const minTipY = CY + R * 0.80 * Math.sin(minTipAngle);
@@ -183,7 +184,7 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
             ref={wrapperRef}
             id="enable-full-screen"
             style={{
-                 height:isLiveClass? "100%":"90vh",
+                height: isLiveClass ? "100%" : "90vh",
                 width: "100%",
                 display: "flex", flexDirection: "column",
                 alignItems: "center", justifyContent: "space-between",
@@ -246,7 +247,7 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
                     {/* Face */}
                     <circle cx={CX} cy={CY} r={R} fill="#fff9f9" />
 
-                    
+
                     <circle cx={CX} cy={CY} r={R} fill="none" stroke="#f9a8d4" strokeWidth={6} />
 
                     {/* Ticks */}
@@ -272,7 +273,7 @@ const HomeClock = ({ handleDataTrack = () => { }, prop }) => {
                     ))}
 
                     {/* ── HOUR HAND ──────────────────────────────────────── */}
-                 
+
                     <line
                         x1={CX} y1={hourTail}
                         x2={CX} y2={hourTip}
