@@ -6,14 +6,13 @@ import { PortalDropdown, useDropdown, useContainerSize } from './Graphutils';
 // ── Main BarGraph ────────────────────────────────────────────────
 const BarGraph = () => {
   const { xMarkersBarPlot, barLineText, yMarkersBarPlot, role_Name, isLiveClass,
- filledUpTo, setFilledUpTo,
+    filledUpTo, setFilledUpTo,
     teamCountsBar, setTeamCountsBar
 
-   } = usePlotContext();
+  } = usePlotContext();
 
 
-  // const [filledUpTo, setFilledUpTo] = useState(Array(xMarkersBarPlot.length).fill(-1));
-  // const [teamCounts, setTeamCounts] = useState(Array(xMarkersBarPlot.length).fill(-1));
+  
   const [noticaleIndex, setNoticaleIndex] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -35,7 +34,7 @@ const BarGraph = () => {
   const XAXIS_H = 38;
   const usableH = Math.max(10, h - OUTER_PAD - GAP - XAXIS_H);
   const tableH = usableH * 0.40;
-  const chartH = usableH * 0.60;
+  const chartH = usableH * 0.40;
   const numRows = xMarkersBarPlot.length;
   const headerH = tableH * 0.28;
   const rowH = (tableH - headerH) / numRows;
@@ -73,6 +72,7 @@ const BarGraph = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: "center",
         padding: '8px 0',
         gap: GAP,
         boxSizing: 'border-box',
@@ -181,8 +181,8 @@ const BarGraph = () => {
                       userSelect: 'none',
                     }}
                     onClick={e => {
-                      if(!isAcess){
-                        return ;
+                      if (!isAcess) {
+                        return;
                       }
                       e.stopPropagation();
                       toggle(index); // ✅ replaces: setOpenIndex(openIndex === index ? null : index)
@@ -285,8 +285,8 @@ const BarGraph = () => {
                   <div
                     key={yIdx}
                     onClick={() => {
-                      if(!isAcess){
-                        return ;
+                      if (!isAcess) {
+                        return;
                       }
                       // setNoticaleIndex(xIdx);
                       handleClick(xIdx, yIdx);

@@ -19,11 +19,11 @@ const LinePlotUi = () => {
   useEffect(() => () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }, []);
 
   // ── Layout ────────────────────────────────────────────────────
-  const GAP = 10;
+  const GAP = 20;
   const OUTER_PAD = 16;
   const usableH = Math.max(60, h - OUTER_PAD - GAP);
-  const tableH = usableH * 0.50;
-  const chartH = usableH * 0.50;
+  const tableH = usableH * 0.40;
+  const chartH = usableH * 0.40;
   const numRows = xMarkers.length;
   const headerH = tableH * 0.27;
   const rowH = (tableH - headerH) / numRows;
@@ -63,6 +63,7 @@ const LinePlotUi = () => {
       style={{
         height: '100%', width: '100%',
         display: 'flex', flexDirection: 'column', alignItems: 'center',
+        justifyContent:"center",
         padding: '8px 0', gap: GAP, boxSizing: 'border-box', overflow: 'hidden',
       }}
     >
@@ -165,7 +166,9 @@ const LinePlotUi = () => {
           element lands at an exact pixel — no flex alignment surprises.
       ══════════════════════════════════════════════════════════ */}
       <div style={{
-        width: contentW, height: chartH, flexShrink: 0,
+        width: contentW,
+         height: chartH,
+          flexShrink: 0,
         backgroundColor: '#BBF8FF', border: '2px solid #06b6d4',
         borderRadius: 16, boxSizing: 'border-box',
         position: 'relative', overflow: 'hidden',
@@ -198,7 +201,8 @@ const LinePlotUi = () => {
                       position: 'absolute',
                       top: markTop,
                       left: colLeft + colW / 2 - markSize / 2,
-                      width: markSize, height: markSize,
+                      width: markSize, 
+                      height: markSize,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: markSize * 1, fontWeight: 900,
                       cursor: 'pointer', color: filled ? '#dc2626' : '#d1d5db',

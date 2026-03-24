@@ -39,7 +39,7 @@ const LineMain = ({ graph }) => {
     <div
       id="enable-full-screen"
       style={{
-        height: isLiveClass ?'100%' : "80vh",
+        height: isLiveClass ?'100%' : "100vh",
         width: '100%',
         display: 'flex',
         position: 'relative',
