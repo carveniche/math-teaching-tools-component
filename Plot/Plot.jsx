@@ -8,7 +8,7 @@ import BarGraphError from './Error/BarGraphError';
 import LinePlotError from './Error/LinePlotError';
 
 // Main wrapper with context
-const Plot = ({ graph, props, handleDataTrack }) => {
+const Plot = ({ graph, props, handleDataTrack = () => { } }) => {
   return (
     <PlotProvider props={props} graph={graph} handleDataTrack={handleDataTrack}>
       <LineMain graph={graph} />
@@ -39,7 +39,7 @@ const LineMain = ({ graph }) => {
     <div
       id="enable-full-screen"
       style={{
-        height: '100%',
+        height: isLiveClass ?'100%' : "80vh",
         width: '100%',
         display: 'flex',
         position: 'relative',

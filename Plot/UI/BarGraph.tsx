@@ -63,7 +63,7 @@ const BarGraph = () => {
     timeoutRef.current = setTimeout(() => setNoticaleIndex(null), 1000);
   };
 
-  const isAcess = isLiveClass ? role_Name !== "tutor" : true
+  const isAcess = isLiveClass ? role_Name === "tutor" : true
   return (
     <div
       ref={containerRef}
@@ -181,7 +181,7 @@ const BarGraph = () => {
                       userSelect: 'none',
                     }}
                     onClick={e => {
-                      if(isAcess){
+                      if(!isAcess){
                         return ;
                       }
                       e.stopPropagation();
@@ -285,7 +285,7 @@ const BarGraph = () => {
                   <div
                     key={yIdx}
                     onClick={() => {
-                      if(isAcess){
+                      if(!isAcess){
                         return ;
                       }
                       // setNoticaleIndex(xIdx);
