@@ -12,7 +12,7 @@ const BarGraph = () => {
   } = usePlotContext();
 
 
-  
+
   const [noticaleIndex, setNoticaleIndex] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -27,14 +27,14 @@ const BarGraph = () => {
   useEffect(() => () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   }, []);
-
+  const heightMulti = isLiveClass ? 0.50 : 0.40
   // Height budget
   const OUTER_PAD = 16;
   const GAP = 20;
   const XAXIS_H = 38;
   const usableH = Math.max(10, h - OUTER_PAD - GAP - XAXIS_H);
-  const tableH = usableH * 0.40;
-  const chartH = usableH * 0.40;
+  const tableH = usableH * heightMulti;
+  const chartH = usableH * heightMulti;
   const numRows = xMarkersBarPlot.length;
   const headerH = tableH * 0.28;
   const rowH = (tableH - headerH) / numRows;

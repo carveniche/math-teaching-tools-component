@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import SettingButton from './Setting/SettingButton';
 import { PlotProvider, usePlotContext } from './context/PlotContext';
 import LinePlotUi from './UI/LinePlotUi';
@@ -34,12 +34,13 @@ const LineMain = ({ graph }) => {
   };
 
   const isAcess = isLiveClass ? role_Name === "tutor" : true
+  const [showTip, setShowTip] = useState(false);
 
   return (
     <div
       id="enable-full-screen"
       style={{
-        height: isLiveClass ?'100%' : "100vh",
+        height: isLiveClass ? '100%' : "100vh",
         width: '100%',
         display: 'flex',
         position: 'relative',
@@ -55,7 +56,7 @@ const LineMain = ({ graph }) => {
       }}
     >
       {/* Settings icon — top left */}
-      {isAcess && <div
+      {/* {isAcess && <div
         onClick={openSettingHandler}
         style={{
           position: 'absolute',
@@ -70,7 +71,7 @@ const LineMain = ({ graph }) => {
           alt='setting'
           style={{ height: '50px', width: '50px' }}
         />
-      </div>}
+      </div>} */}
 
       {/* Fullscreen icon — top right */}
       {!isLiveClass && <div
@@ -108,6 +109,44 @@ const LineMain = ({ graph }) => {
         {graph === 'Picture Graph' ? <PictureGraph /> :
           graph === 'Bar Graph' ? <BarGraph /> :
             <LinePlotUi />}
+
+        {isAcess && (
+          <div
+            onClick={openSettingHandler}
+            onMouseEnter={() => setShowTip(true)}
+            onMouseLeave={() => setShowTip(false)}
+            style={{
+              position: 'absolute',
+              left: '72%',
+              top: '0.5rem',
+              zIndex: 10,
+              cursor: 'pointer',
+            }}
+          >
+            <img
+              src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/setting.png"
+              style={{ height: 50, width: 50 }}
+            />
+
+            {showTip && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: 45,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "black",
+                  color: "white",
+                  padding: "4px 8px",
+                  borderRadius: 4,
+                  fontSize: 12,
+                }}
+              >
+                Settings
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Settings panel — slides up from bottom */}

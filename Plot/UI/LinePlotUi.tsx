@@ -8,6 +8,7 @@ const MAX_MARKS = 4;
 const LinePlotUi = () => {
   const { lineText, xMarkers, role_Name, isLiveClass, teamCountsLine, setTeamCountsLine } = usePlotContext();
 
+  const heightMulti = isLiveClass ? 0.50 : 0.40
   // const [teamCounts, setTeamCounts] = useState<number[]>(Array(xMarkers.length).fill(0));
   const [noticaleIndex, setNoticaleIndex] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -22,8 +23,8 @@ const LinePlotUi = () => {
   const GAP = 20;
   const OUTER_PAD = 16;
   const usableH = Math.max(60, h - OUTER_PAD - GAP);
-  const tableH = usableH * 0.40;
-  const chartH = usableH * 0.40;
+  const tableH = usableH * heightMulti;
+  const chartH = usableH * heightMulti;
   const numRows = xMarkers.length;
   const headerH = tableH * 0.27;
   const rowH = (tableH - headerH) / numRows;
