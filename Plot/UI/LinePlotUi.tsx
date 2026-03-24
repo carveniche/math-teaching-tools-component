@@ -6,9 +6,9 @@ const Y_OPTIONS = [0, 1, 2, 3, 4];
 const MAX_MARKS = 4;
 
 const LinePlotUi = () => {
-  const { lineText, xMarkers } = usePlotContext();
+  const { lineText, xMarkers, role_Name, isLiveClass, teamCountsLine, setTeamCountsLine } = usePlotContext();
 
-  const [teamCounts, setTeamCounts] = useState<number[]>(Array(xMarkers.length).fill(0));
+  // const [teamCounts, setTeamCounts] = useState<number[]>(Array(xMarkers.length).fill(0));
   const [noticaleIndex, setNoticaleIndex] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { openIndex, toggle, close, triggerRefs } = useDropdown(xMarkers.length);
@@ -22,8 +22,8 @@ const LinePlotUi = () => {
   const GAP = 10;
   const OUTER_PAD = 16;
   const usableH = Math.max(60, h - OUTER_PAD - GAP);
-  const tableH = usableH * 0.40;
-  const chartH = usableH * 0.60;
+  const tableH = usableH * 0.50;
+  const chartH = usableH * 0.50;
   const numRows = xMarkers.length;
   const headerH = tableH * 0.27;
   const rowH = (tableH - headerH) / numRows;
@@ -45,16 +45,17 @@ const LinePlotUi = () => {
   const colW = (contentW - CP * 2) / xMarkers.length;
 
   const handleSelect = (index: number, value: number) => {
-    const u = [...teamCounts]; u[index] = value; setTeamCounts(u);
+    const u = [...teamCountsLine]; u[index] = value; setTeamCountsLine(u);
   };
 
   const handleMarkClick = (colIdx: number, markRank: number) => {
     // markRank: 1 = bottom mark, MAX_MARKS = top mark
     setNoticaleIndex(colIdx);
-    const u = [...teamCounts]; u[colIdx] = markRank; setTeamCounts(u);
+    const u = [...teamCountsLine]; u[colIdx] = markRank; setTeamCountsLine(u);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setNoticaleIndex(null), 1000);
   };
+  const isAcess = isLiveClass ? role_Name === "tutor" : true
 
   return (
     <div
@@ -124,9 +125,15 @@ const LinePlotUi = () => {
                       borderRadius: 6, padding: '0 8px', cursor: 'pointer',
                       fontSize: fs, userSelect: 'none',
                     }}
-                    onClick={e => { e.stopPropagation(); toggle(index); }}
+                    onClick={e => {
+                      if (!isAcess) {
+                        return;
+                      }
+                      e.stopPropagation();
+                      toggle(index);
+                    }}
                   >
-                    <span style={{ fontWeight: 600 }}>{teamCounts[index]}</span>
+                    <span style={{ fontWeight: 600 }}>{teamCountsLine[index]}</span>
                     <img
                       src='https://d3g74fig38xwgn.cloudfront.net/teaching-tool/dropDownIcon.svg'
                       alt='▾'
@@ -167,7 +174,7 @@ const LinePlotUi = () => {
         {/* ── Marks columns ── */}
         {xMarkers.map((label, colIdx) => {
           const colLeft = CP + colIdx * colW;
-          const count = teamCounts[colIdx];
+          const count = teamCountsLine[colIdx];
 
           return (
             <React.Fragment key={colIdx}>
@@ -176,27 +183,26 @@ const LinePlotUi = () => {
                 // i=0 → bottom-most mark (rank 1), i=MAX_MARKS-1 → top mark
                 const rank = i + 1;                         // 1..4
                 const filled = rank <= count;
-                const markTop = AXIS_Y - (i + 1) * (markSize + 2); // place above axis
+                const step = PLOT_H / MAX_MARKS;
+                const markTop = AXIS_Y - (i + 1) * step + (step - markSize) / 2;
                 return (
                   <div
                     key={i}
-                    onClick={() => handleMarkClick(colIdx, rank)}
+                    onClick={() => {
+                      if (!isAcess) {
+                        return;
+                      }
+                      handleMarkClick(colIdx, rank)
+                    }}
                     style={{
                       position: 'absolute',
                       top: markTop,
                       left: colLeft + colW / 2 - markSize / 2,
-                      width: markSize,
-                      height: markSize,
-                      
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: markSize * 0.82,
-                      fontWeight: 900,
-                      cursor: 'pointer',
-                      color: filled ? '#dc2626' : '#d1d5db',
-                      userSelect: 'none',
-                      lineHeight: 1,
+                      width: markSize, height: markSize,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: markSize * 1, fontWeight: 900,
+                      cursor: 'pointer', color: filled ? '#dc2626' : '#d1d5db',
+                      userSelect: 'none', lineHeight: 1,
                     }}
                   >
                     ✕

@@ -65,6 +65,8 @@ interface PlotContextType {
   setFilledUpTo: (v: number[]) => void;
   teamCountsBar: number[];
   setTeamCountsBar: (v: number[]) => void;
+  setTeamCountsLine: (v: number[]) => void;
+  teamCountsLine: number[]
 
 }
 
@@ -158,6 +160,7 @@ export const PlotProvider = ({ children, props, handleDataTrack, graph }: { chil
 
   const [filledUpTo, setFilledUpTo] = useState(Array(xMarkersBarPlot.length).fill(-1));
   const [teamCountsBar, setTeamCountsBar] = useState(Array(xMarkersBarPlot.length).fill(-1));
+  const [teamCountsLine, setTeamCountsLine] = useState<number[]>(Array(xMarkers.length).fill(0));
 
   const [barerror, setBarError] = useState({
     xlavelBarPlotError: false,
@@ -261,6 +264,27 @@ export const PlotProvider = ({ children, props, handleDataTrack, graph }: { chil
 
   }, [props?.Data, isAccessStudent, graph]);
 
+  useEffect(() => {
+    if (graph === "Line Plot" && isAcessTeacher) {
+      handleDataTrack?.({
+        isFrom: "teamCountsLine",
+        data: teamCountsLine
+      });
+    }
+
+  }, [graph, isLiveClass, teamCountsLine])
+  useEffect(() => {
+    if (graph !== "Line Plot") return;
+    if (!isAccessStudent) return;
+    if (!props?.Data) return;
+    const { teamCountsLine } = props.Data;
+    if (teamCountsLine) {
+      setTeamCountsLine(teamCountsLine)
+    }
+
+
+
+  }, [props?.Data, isAccessStudent, graph]);
 
   const value = {
     lineText,
@@ -279,7 +303,8 @@ export const PlotProvider = ({ children, props, handleDataTrack, graph }: { chil
     CATEGORY_CONFIG, IMAGE_MAP,
     role_Name, isLiveClass,
     filledUpTo, setFilledUpTo,
-    teamCountsBar, setTeamCountsBar
+    teamCountsBar, setTeamCountsBar,
+    teamCountsLine, setTeamCountsLine,
   }
 
   return (
