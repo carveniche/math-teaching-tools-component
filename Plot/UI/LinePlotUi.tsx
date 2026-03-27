@@ -42,7 +42,7 @@ const LinePlotUi = () => {
   const TITLE_H = 14;
   const PLOT_H = AXIS_Y - CP;                  // height available for marks above axis
   const markSize = Math.max(12, Math.min(30, Math.floor(PLOT_H / MAX_MARKS) - 2));
-  const chartFs = Math.max(9, Math.min(12, markSize * 0.65));
+  const chartFs = Math.max(9, Math.min(16, markSize * 0.65));
   const colW = (contentW - CP * 2) / xMarkers.length;
 
   const handleSelect = (index: number, value: number) => {
@@ -80,7 +80,7 @@ const LinePlotUi = () => {
             <div key={i} style={{
               flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
               backgroundImage: 'linear-gradient(to bottom, #00A9D8, #93F6FF)',
-              fontWeight: 700, fontSize: fs + 1,
+              fontWeight: 700, fontSize: fs + 2,
               borderRight: i === 0 ? '1px solid #0077BC' : undefined,
               borderRadius: i === 0 ? '8px 0 0 0' : '0 8px 0 0',
               whiteSpace: 'nowrap', overflow: 'hidden', textAlign: 'center', padding: '0 4px',
@@ -102,7 +102,7 @@ const LinePlotUi = () => {
               <div style={{
                 flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
                 backgroundColor: '#BBF8FF', borderRight: '1px solid #0077BC',
-                fontSize: fs, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis',
+                fontSize: fs+5,fontWeight:"600", overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis',
                 borderBottomLeftRadius: isLast ? 8 : 0,
               }}>
                 {row}
@@ -206,7 +206,7 @@ const LinePlotUi = () => {
                       height: markSize,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: markSize * 1, fontWeight: 900,
-                      cursor: 'pointer', color: filled ? '#dc2626' : '#d1d5db',
+                      cursor: 'pointer', color: filled ? '#dc2626' : '#ADB5B8',
                       userSelect: 'none', lineHeight: 1,
                     }}
                   >
@@ -236,7 +236,7 @@ const LinePlotUi = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: chartFs,
-                fontWeight: 500,
+                fontWeight: 800,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -261,13 +261,13 @@ const LinePlotUi = () => {
         <img
           src='https://d3g74fig38xwgn.cloudfront.net/teaching-tool/leftArrow.png'
           alt=''
-          style={{ position: 'absolute', top: AXIS_Y - 5, left: CP - 8, width: 8 }}
+          style={{ position: 'absolute', top: AXIS_Y - 4, left: CP - 8, width: 8 }}
         />
         {/* Right arrow */}
         <img
           src='https://d3g74fig38xwgn.cloudfront.net/teaching-tool/rightArrow.png'
           alt=''
-          style={{ position: 'absolute', top: AXIS_Y - 5, right: CP - 8, width: 8 }}
+          style={{ position: 'absolute', top: AXIS_Y - 4, right: CP - 8, width: 8 }}
         />
 
         {/* X-axis title */}
@@ -279,7 +279,7 @@ const LinePlotUi = () => {
           height: TITLE_H,
           textAlign: 'center',
           fontSize: chartFs,
-          fontWeight: 700,
+          fontWeight: 800,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
