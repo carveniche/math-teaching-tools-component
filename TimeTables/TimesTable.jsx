@@ -8,14 +8,8 @@ const TimesTable = ({ props, handleDataTrack }) => {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [showTable, setShowTabel] = useState(false);
-  const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      // setVisible(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+
 
   useEffect(() => {
     generateTable(2);
@@ -24,34 +18,77 @@ const TimesTable = ({ props, handleDataTrack }) => {
   const generateTable = (selectedNumber) => {
     if (selectedNumber >= 1 && selectedNumber <= 15) {
       setNumber(selectedNumber);
+
       const newTable = Array.from({ length: 15 }, (_, i) => ({
         multiplicand: i + 1,
         result: (i + 1) * selectedNumber,
       }));
+
       setTable(newTable);
+
       const answers = newTable.map(row => row.result);
-      setShuffledAnswers(answers.sort(() => Math.random() - 0.5));
+      const shuffled = [...answers].sort(() => Math.random() - 0.5);
+
+      setShuffledAnswers(shuffled);
       setUserAnswers({});
+
+      // ✅ DATA TRACK SEND
+      if (isLiveClass && role_name === "tutor") {
+        handleDataTrack({
+          isFrom: "timesTable",
+          data: {
+            number: selectedNumber,
+            shuffledAnswers: shuffled,
+
+          }
+        });
+      }
     }
   };
 
   const handleReset = () => {
+    const shuffled = [...shuffledAnswers].sort(() => Math.random() - 0.5);
     setUserAnswers({});
-    setShuffledAnswers([...shuffledAnswers].sort(() => Math.random() - 0.5));
+    setShuffledAnswers(shuffled);
+
+    if (isLiveClass && role_name === "tutor") {
+      handleDataTrack({
+        isFrom: "timesTableReset",
+        data: shuffled
+      });
+    }
   };
 
   const handleDragStart = (e, answer) => {
-    console.log(e, answer, "e,answer");
     e.dataTransfer.setData('text/plain', answer);
   };
 
   const handleDrop = (e, index, correctResult) => {
+    if (!isTeacher) {
+      e.preventDefault();
+      return;
+    }
+
     e.preventDefault();
     const droppedAnswer = parseInt(e.dataTransfer.getData('text/plain'));
-    setUserAnswers(prev => ({
-      ...prev,
-      [index]: { answer: droppedAnswer, correct: droppedAnswer === correctResult },
-    }));
+
+    const updatedAnswers = {
+      ...userAnswers,
+      [index]: {
+        answer: droppedAnswer,
+        correct: droppedAnswer === correctResult
+      }
+    };
+
+    setUserAnswers(updatedAnswers);
+
+    // ✅ SEND UPDATE
+    if (isLiveClass && role_name === "tutor") {
+      handleDataTrack({
+        isFrom: "timesTableAnswer",
+        data: updatedAnswers
+      });
+    }
   };
 
   const handleDragOver = (e) => {
@@ -84,14 +121,47 @@ const TimesTable = ({ props, handleDataTrack }) => {
   const isTeacher = isLiveClass ? role_name === 'tutor' : true;
 
 
+  useEffect(() => {
+    if (isLiveClass && role_name !== "tutor" && Data?.timesTable) {
+      const { number, shuffledAnswers } = Data.timesTable;
+      if (!number) return;
+
+      setNumber(number);
+
+      const newTable = Array.from({ length: 15 }, (_, i) => ({
+        multiplicand: i + 1,
+        result: (i + 1) * number,
+      }));
+
+      setTable(newTable);
+      setShuffledAnswers(shuffledAnswers);
+
+      // 🔥 Reset answers ONLY when table changes
+      setUserAnswers({});
+    }
+  }, [Data?.timesTable]);
+
+  useEffect(() => {
+    if (isLiveClass && role_name !== "tutor" && Data?.timesTableAnswer) {
+      setUserAnswers(Data.timesTableAnswer);
+    }
+  }, [Data?.timesTableAnswer]);
+
+  useEffect(() => {
+    if (isLiveClass && role_name !== "tutor" && Data?.timesTableReset) {
+      setShuffledAnswers(Data.timesTableReset);
+      setUserAnswers({});
+    }
+  }, [Data?.timesTableReset]);
+
   return (
     <div className={styles.appWrapper} id="enable-full-screen">
       <div className={styles.container}>
 
         {/* ── Header (absolute — takes zero layout height) ── */}
         <div className={styles.headingContainer}>
-        {isTeacher && (  <div className='flex gap-4'>
-          {  <img
+          {isTeacher && (<div className='flex gap-4'>
+            {<img
               src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/refereshIcon.png"
               alt="refresh"
               onClick={handleReset}
@@ -128,9 +198,19 @@ const TimesTable = ({ props, handleDataTrack }) => {
             {shuffledAnswers.map((answer, index) => (
               <div
                 key={index}
+                style={{
+                  cursor: !isTeacher ? "default" : "move"
+                }}
                 className={styles.answerCard}
-                draggable
-                onDragStart={(e) => handleDragStart(e, answer)}
+                draggable={isLiveClass ? isTeacher : true}
+                onDragStart={(e) => {
+                  if (!isTeacher) {
+                    e.preventDefault(); // ✅ HARD BLOCK
+                    return;
+                  }
+                  handleDragStart(e, answer)
+                }
+                }
               >
                 {answer}
               </div>
