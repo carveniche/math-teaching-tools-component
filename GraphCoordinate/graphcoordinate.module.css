@@ -1,0 +1,407 @@
+.graphApp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  border-radius: 16px;
+  font-family: Arial, sans-serif;
+  margin: auto;
+  background-image: url('https://d3g74fig38xwgn.cloudfront.net/teaching-tool/graphbackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 1rem;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ── Graph Container ── */
+/* 
+  Available height = 100% of parent minus ~70px for buttons row.
+  We cap width at 500px and keep it square using the smaller of
+  (available-width) or (available-height).
+*/
+.graphContainer {
+  position: relative;
+  /* square: whichever is smaller — width or height budget */
+  width: min(calc(100% - 2rem), calc(100vh - 140px), 500px);
+  height: min(calc(100% - 2rem), calc(100vh - 140px), 500px);
+  /* also respect container width on narrow screens */
+  max-width: min(calc(100vw - 2rem), calc(100vh - 140px), 500px);
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  border: 1px solid #333;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+/* ── Axes ── */
+.axis {
+  position: absolute;
+  background-color: #333;
+  z-index: 2;
+}
+
+.xAxis {
+  position: absolute;
+  height: 2px;
+  background: black;
+  top: 90%;
+}
+
+.yAxis {
+  position: absolute;
+  width: 2px;
+  background: black;
+}
+
+/* ── Grid Lines ── */
+.gridLine {
+  position: absolute;
+  background-color: #ede3e3;
+  z-index: 1;
+}
+
+.xGrid {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+}
+
+.yGrid {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: #ccc;
+}
+
+/* ── Ticks ── */
+.tick {
+  position: absolute;
+  background-color: #333;
+  z-index: 2;
+}
+
+.xTick {
+  width: 2px;
+  height: 10px;
+  bottom: 9%;
+}
+
+.yTick {
+  width: 10px;
+  height: 2px;
+  left: 10%;
+}
+
+.tickLabel {
+  position: absolute;
+  font-size: clamp(8px, 1.5vw, 12px);
+  color: #333;
+  z-index: 2;
+}
+
+.xLabel {
+  bottom: 3%;
+  transform: translateX(-50%);
+  margin-left: 5px;
+}
+
+.yLabel {
+  left: 5%;
+  transform: translateY(-50%);
+  margin-top: 3px;
+}
+
+/* ── Points ── */
+.point {
+  position: absolute;
+  width: clamp(6px, 1.5vw, 10px);
+  height: clamp(6px, 1.5vw, 10px);
+  background-color: red;
+  border-radius: 50%;
+  z-index: 3;
+  margin-top: -5px;
+  margin-left: -5px;
+}
+
+.pointLabel {
+  position: absolute;
+  font-size: clamp(9px, 1.5vw, 12px);
+  color: white;
+  z-index: 2;
+  background: green;
+  border-radius: 50%;
+  padding: 2px;
+  text-align: center;
+}
+
+/* ── Buttons ── */
+.btnParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── Error ── */
+.errorMessage {
+  position: absolute;
+  top: 2px;
+  left: 35%;
+  color: red;
+  font-size: clamp(10px, 1.5vw, 12px);
+  z-index: 1;
+  background-color: rgba(226, 141, 141, 0.507);
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: none;
+}
+
+/* ── Canvas ── */
+.graphCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+/* ── Undo Button ── */
+.undoBtn {
+  padding: 0.75em 1.25em;
+  font-size: clamp(10px, 1.5vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: black;
+  background-color: #23c483;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+}
+
+.undoBtn:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+}
+
+.undoBtn:active {
+  transform: translateY(-1px);
+}
+
+.undoBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Table Overlay ── */
+.tableContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.tableContent {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.tableContent table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tableContent th,
+.tableContent td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: center;
+}
+
+.tableContent th {
+  background-color: #f2f2f2;
+}
+
+.tableContent input {
+  width: 50px;
+  padding: 4px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.tableContent input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.tableContent input[type="number"] {
+  width: 50px;
+  padding: 4px;
+  text-align: center;
+  border: 1px solid grey;
+  border-radius: 3px;
+  font-size: 12px;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+.tableContent input[type="number"]::-webkit-inner-spin-button,
+.tableContent input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.closeBtn {
+  width: 100%;
+  text-align: right;
+  color: red;
+  font-weight: bolder;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ── Desktop ── */
+@media (min-width: 768px) {
+
+
+  .tableContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .tableContent {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .closeBtn {
+    display: none;
+  }
+
+  .btnParent {
+    margin-top: 1rem;
+    position: relative;
+    left: 0rem;
+  }
+}
+
+/* ── Mobile / Tablet ── */
+@media (max-width: 767px) {
+  .graphContainer {
+    /* On mobile, height is more constrained — use whichever is smaller */
+    width: min(calc(100vh - 140px), 90vw, 400px);
+    height: min(calc(100vh - 140px), 90vw, 400px);
+    max-width: min(calc(100vh - 140px), 90vw, 400px);
+  }
+
+  .point {
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    margin-left: -4px;
+  }
+
+  .pointLabel {
+    font-size: 10px;
+    padding: 1px;
+  }
+
+  .undoBtn {
+    font-size: 10px;
+    padding: 0.9em 1.5em;
+  }
+
+  .tickLabel {
+    font-size: 10px;
+  }
+
+  .tableContent {
+    width: 95%;
+    padding: 8px;
+  }
+
+  .tableContent input {
+    width: 40px;
+    font-size: 10px;
+  }
+}
+
+/* ── Very small screens (< 360px) ── */
+@media (max-width: 360px) {
+  .graphContainer {
+    width: 95vw;
+    height: 95vh;
+  }
+
+  .undoBtn {
+    font-size: 9px;
+    padding: 0.7em 1em;
+    letter-spacing: 1px;
+  }
+}
+
+/* ── Landscape phones ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .graphApp {
+    padding: 0.25rem;
+  }
+
+  .graphContainer {
+    /* In landscape, height is very limited — prioritise vh */
+    width: min(calc(100vh - 90px), 60vw, 350px);
+    height: min(calc(100vh - 90px), 60vw, 350px);
+    max-width: min(calc(100vh - 90px), 60vw, 350px);
+  }
+
+  .btnParent {
+    margin-top: 0.25rem;
+  }
+}
