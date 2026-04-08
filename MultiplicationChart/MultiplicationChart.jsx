@@ -207,7 +207,7 @@ const MultiplicationChart = ({ props, handleDataTrack }) => {
       // className="custom-container"
       style={{
         height: "100%",
-        width: "90%",
+        width: isLiveClass ? "90%" : "100%",
         display: "flex",
         flexDirection: "column",
       }}

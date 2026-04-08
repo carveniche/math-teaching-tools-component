@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './TimesTable.module.css';
 
-const TimesTable = ({ props, handleDataTrack }) => {
+const TimesTable = ({ props, handleDataTrack = () => { } }) => {
   const { isLiveClass, role_name, Data } = props ?? {};
   const [number, setNumber] = useState(2);
   const [table, setTable] = useState([]);
