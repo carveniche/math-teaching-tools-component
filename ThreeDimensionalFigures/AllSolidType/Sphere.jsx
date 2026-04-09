@@ -1,0 +1,125 @@
+import React, { useEffect, useState } from "react";
+import CommonButton from "./commonComponent/CommonButton";
+import { playClickSound } from "../../utils/playSound";
+import { useTriangleContext } from "../contextDimensional/ContextTriangle";
+import "../style/mainComponent.css";
+import Sphere3D from "./commonComponent/CavasElement/ThreeDSphere";
+
+const Description = () => {
+  const { descriptionData } = useTriangleContext();
+  return (
+    <div
+      style={{
+        fontSize: "18px",
+        lineHeight: "2",
+        fontFamily: "sans-serif",
+        color: "#333",
+        textAlign: "center",
+      }}
+      dangerouslySetInnerHTML={{ __html: descriptionData }}
+    />
+  );
+};
+
+const Sphere = () => {
+  const [isActiveButton, setIsActiveButton] = useState({
+    isAngle: false,
+    isInfo: false,
+  });
+
+  const { descriptionData, setDescriptionData, ismaximized } =
+    useTriangleContext();
+  useEffect(() => {
+    if (isActiveButton.isAngle === false) {
+      setDescriptionData("");
+    }
+    if (isActiveButton.isInfo === false) {
+      setDescriptionData("");
+    }
+  }, [isActiveButton.isAngle, isActiveButton.isInfo]);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        position: "relative",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        gap: "20px",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {/* <Triangle label="Acute Triangle" points="150,60 260,280 40,280"
+                isActiveButton={isActiveButton}
+                ismobile={ismobile}
+            /> */}
+      <Sphere3D />
+      {descriptionData.length > 0 && (
+        <div
+          style={{
+            width: "auto",
+            position: "absolute",
+            right: ismaximized ? "7%" : "2%",
+            top: "30%",
+            transform: "translateY(-50%)",
+            textAlign: "center",
+            fontSize: "18px",
+            color: "#444",
+            backgroundColor: "#f9f9f9",
+            padding: "10px",
+            borderRadius: "10px",
+            zIndex: 9999,
+            width: ismaximized ? "300px" : "250px",
+          }}
+        >
+          <Description />
+        </div>
+      )}
+
+      <div
+        style={{
+          display: "flex",
+          bottom: "20px",
+          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "20px",
+          width: "full",
+          height: "100px",
+          borderRadius: "20px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            width: "full",
+            gap: "20px",
+          }}
+        >
+          <CommonButton
+            value="Show Shape Info"
+            isActiveButton={isActiveButton.isAngle}
+            onClick={() => {
+              playClickSound();
+              setDescriptionData(`<b  style="color:#ef4444;">Sphere</b> <br/>
+                                Number of Edges = 0</br>
+                                Number of Faces = 1 </br>
+                                Number of Vertices = 0`);
+              setIsActiveButton((prev) => ({
+                // ...prev,
+                isAngle: !prev.isAngle,
+              }));
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Sphere;
