@@ -5,10 +5,7 @@ import CommonButton from './commonComponent/CommonButton';
 import { playClickSound } from '../../utils/playSound';
 import CommonInfo from './commonComponent/CommonInfo';
 import { useTriangleContext } from '../contextDimensional/ContextTriangle';
-// import CommonButton from './CommonComponent/CommonButton';
-// import CommonInfo from './CommonComponent/CommonInfo';
-// import { useTriangleContext } from '../ContextTriangle/ContextTriangle';
-// import { playClickSound } from '../../utils/playSound';
+import style from "./style.module.css"
 
 import '../style/mainComponent.css'
 import Cube3D from './commonComponent/CavasElement/ThreeDCube';
@@ -26,15 +23,11 @@ const Description = () => {
 }
 
 const Cube = () => {
-    const [isActiveButton, setIsActiveButton] = useState({
-        isAngle: false,
-        isInfo: false
-    })
 
 
     const theme = useTheme();
     const ismobile = useMediaQuery(theme.breakpoints.down("sm"));
-    const { descriptionData, setDescriptionData,ismaximized } = useTriangleContext();
+    const { descriptionData, setDescriptionData, ismaximized,isLiveClass,isActiveButton, setIsActiveButton,isButtonAccess } = useTriangleContext();
     useEffect(() => {
         if (isActiveButton.isAngle === false) {
             setDescriptionData("");
@@ -48,68 +41,75 @@ const Cube = () => {
 
 
     return (
-        <div style={{
-            display: "flex",
-            position: "relative",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "20px",
-            width: "100%",
-            height: "100%",
-        }}>
+        <div className='md:pb-[100px]  lg:pb-[80px] xl:pb-[10px]'
+            style={{
+                display: "flex",
+                flexDirection: "column",   // 🔥 IMPORTANT
+                width: "100%",
+                // height: "100%",            // parent controls
+                position: "relative",
+                overflow: "hidden",
+                justifyContent: "center",
+                alignItems: "center",
 
-            {/* <Triangle label="Acute Triangle" points="150,60 260,280 40,280"
-                isActiveButton={isActiveButton}
-                ismobile={ismobile}
-            /> */}
-            {/* <Cube3D /> */}
-            <RectangularPrism3D/>
+            }}
+        >
+            {/* <Cube3D />
+             */} {/* 🔷 3D AREA */}
+            < div
+                 className={style.solidShape}
+            >
+                <RectangularPrism3D />
+            </div>
             {descriptionData.length > 0 &&
                 (<div
                     style={{
-                        width: "auto",
                         position: "absolute",
-                        right: ismaximized ?"7%":"2%",   // 👉 Move 1px from the RIGHT side
-                        top: "30%",
+                        right: ismaximized ? "7%" : "2%",   // 👉 Move 1px from the RIGHT side
+                        top: ismaximized ? "38%" : "30%",
                         transform: "translateY(-50%)",
-                        textAlign: "left",
+                        textAlign: "center",
                         fontSize: "18px",
                         color: "#444",
                         backgroundColor: "#f9f9f9",
                         padding: "10px",
                         borderRadius: "10px",
-                        display:"flex",
-                        justifyContent:"center",
-                        alignItems:"center",
-                        zIndex: 9999,
-                         width: ismaximized ? "300px" : "250px"
+                        zIndex: isLiveClass ? 0 : 9999,
+                        width: window.screen.width >= 1440 ? "300px" : ismaximized ? "300px" : "250px"
                     }}
                 >
                     <Description />
                 </div>)
             }
 
-            <div style={{ display: "flex", bottom: "20px", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px", width: "full", height: "100px", borderRadius: "20px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", width: "full", gap: "20px" }}>
 
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "20px",
+                    padding: "10px",
+                    flexWrap: "wrap",
+                    minHeight: "70px",  // flexible instead of fixed 100px
 
-                    <CommonButton value="Show Shape Info"
-                        isActiveButton={isActiveButton.isAngle}
-                        onClick={() => {
-                            playClickSound();
-                            setDescriptionData(`<b  style="color:#ef4444;">Rectangular Prism</b> <br/>
+                }}>
+
+                <CommonButton value="Show Shape Info"
+                    isActiveButton={isActiveButton.isAngle}
+                    onClick={() => {
+                         if (!isButtonAccess) return;
+                        playClickSound();
+                        setDescriptionData(`<b  style="color:#ef4444;">Rectangular Prism</b> <br/>
                                 Number of Edges = 12</br>
                                 Number of Faces = 6 </br>
                                 Number of Vertices = 8`)
-                            setIsActiveButton((prev) => ({
-                                // ...prev,
-                                isAngle: !prev.isAngle
-                            }))
-                        }}
-                    />
-                </div>
+                        setIsActiveButton((prev) => ({
+                            isAngle: !prev.isAngle
+                        }))
+                    }}
+                />
+
             </div>
 
         </div>

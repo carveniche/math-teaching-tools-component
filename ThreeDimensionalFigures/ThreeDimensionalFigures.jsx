@@ -3,10 +3,10 @@ import { TriangleProvider, useTriangleContext } from './contextDimensional/Conte
 import Setting from './Setting/Setting.jsx'
 import DimensionalMaping from './AllSolidType/DimensionalMaping.jsx'
 
-const ThreeDimensionalFigures = () => {
+const ThreeDimensionalFigures = ({ prop, handleDataTrack = () => { }}) => {
   return (
 
-    <TriangleProvider>
+    <TriangleProvider prop={prop} handleDataTrack={handleDataTrack}>
       <MainContent />
     </TriangleProvider>
   )
@@ -79,8 +79,8 @@ const MainContent = () => {
     <div
       id="enable-full-screen"
       style={{
-      //  height: 'calc(100vh - 200px)',
-      height: '100%',
+        //  height: 'calc(100vh - 200px)',
+        height: '100%',
         width: '100%',
         display: 'flex',
         flexDirection: "column",  // 🔥 IMPORTANT
@@ -93,7 +93,7 @@ const MainContent = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'bottom',
-        marginTop:isLiveClass ? "0px" : "10px"
+        marginTop: isLiveClass ? "0px" : "10px"
       }}
     >
       {!isLiveClass && (<div

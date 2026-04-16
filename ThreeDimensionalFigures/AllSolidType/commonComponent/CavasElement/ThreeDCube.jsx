@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import { useThree } from "@react-three/fiber";
+import { useEffect } from "react";
+import { useTriangleContext } from "../../../contextDimensional/ContextTriangle";
 
 const Cube = ({ color, autoRotate }) => {
   const groupRef = useRef(null);
@@ -28,8 +31,7 @@ const Cube = ({ color, autoRotate }) => {
     </group>
   );
 };
-import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+
 
 const ResponsiveCamera = () => {
   const { camera, size } = useThree();
@@ -58,6 +60,7 @@ const ResponsiveCamera = () => {
 const Cube3D = () => {
   const [color, setColor] = useState("#4f46e5");
   const [autoRotate, setAutoRotate] = useState(false);
+  const { isLiveClass } = useTriangleContext();
 
   return (
     <div
@@ -118,7 +121,7 @@ const Cube3D = () => {
           transform: "translateX(-50%)",
           display: "flex",
           gap: "10px",
-          zIndex: 10,
+          zIndex: isLiveClass ? 0 : 10,
         }}
       >
         {["#4f46e5", "#22c55e", "#ef4444", "#eab308"].map((c) => (

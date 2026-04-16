@@ -1,0 +1,10 @@
+.solidShape {
+    flex: 1;
+    width: 40%;
+}
+
+@media (max-width: 768px) {
+  .solidShape {
+    width: 60%;
+  }
+}

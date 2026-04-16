@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import { useTriangleContext } from "../../../contextDimensional/ContextTriangle";
 
 // ── Cylinder mesh ─────────────────────────────
 const Cylinder = ({ color, autoRotate }) => {
@@ -61,16 +62,16 @@ const Cylinder3D = () => {
   const containerRef = useRef(null);
   const [color, setColor] = useState("#3b82f6");
   const [autoRotate, setAutoRotate] = useState(false);
+  const { isLiveClass } = useTriangleContext();
 
   return (
     <div
-      ref={containerRef}
       style={{
-        width: "100%",
-        height: "50vh", // responsive height
+        width: "100%",        // ✅ full width
+        height: "100%",       // ✅ full height (comes from parent)
         position: "relative",
-        background: "#c1e3db",
-        borderRadius: "20px",
+        background: "#fff",
+        borderRadius: "16px",
         overflow: "hidden",
       }}
     >
@@ -119,7 +120,7 @@ const Cylinder3D = () => {
           transform: "translateX(-50%)",
           display: "flex",
           gap: "10px",
-          zIndex: 10,
+           zIndex: isLiveClass ? 0 : 10,
         }}
       >
         {["#3b82f6", "#22c55e", "#ef4444", "#eab308"].map((c) => (
