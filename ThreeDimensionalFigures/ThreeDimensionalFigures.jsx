@@ -3,7 +3,7 @@ import { TriangleProvider, useTriangleContext } from './contextDimensional/Conte
 import Setting from './Setting/Setting.jsx'
 import DimensionalMaping from './AllSolidType/DimensionalMaping.jsx'
 
-const ThreeDimensionalFigures = ({ prop, handleDataTrack = () => { }}) => {
+const ThreeDimensionalFigures = ({ prop, handleDataTrack = () => { } }) => {
   return (
 
     <TriangleProvider prop={prop} handleDataTrack={handleDataTrack}>
@@ -14,7 +14,7 @@ const ThreeDimensionalFigures = ({ prop, handleDataTrack = () => { }}) => {
 
 
 const MainContent = () => {
-  const { state, setState, setIsMaximized, isLiveClass, roleName, } = useTriangleContext();
+  const { state, setState, setIsMaximized, isLiveClass, roleName, setCanvasKey } = useTriangleContext();
   const settingRef = useRef(null);
 
 
@@ -37,6 +37,9 @@ const MainContent = () => {
     const handleFullscreenChange = () => {
       if (!document.fullscreenElement) {
         setIsMaximized(false)
+        setTimeout(() => {
+          setCanvasKey(prev => prev + 1);
+        }, 120);
       }
     };
 
@@ -79,8 +82,7 @@ const MainContent = () => {
     <div
       id="enable-full-screen"
       style={{
-        //  height: 'calc(100vh - 200px)',
-        height: '100%',
+        height: isLiveClass ? '100%' : 'calc(100vh - 200px)',
         width: '100%',
         display: 'flex',
         flexDirection: "column",  // 🔥 IMPORTANT
@@ -99,7 +101,8 @@ const MainContent = () => {
       {!isLiveClass && (<div
         style={{
           position: "absolute",
-          right: "10px",
+          top:"20px",
+          right: "20px",
           cursor: "pointer",
           zIndex: 1,
         }}

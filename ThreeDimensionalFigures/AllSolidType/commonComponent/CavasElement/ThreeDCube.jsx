@@ -60,7 +60,7 @@ const ResponsiveCamera = () => {
 const Cube3D = () => {
   const [color, setColor] = useState("#4f46e5");
   const [autoRotate, setAutoRotate] = useState(false);
-  const { isLiveClass } = useTriangleContext();
+  const { isLiveClass,canvasKey } = useTriangleContext();
 
   return (
     <div
@@ -75,7 +75,7 @@ const Cube3D = () => {
     >
 
       {/* 🔷 3D CANVAS */}
-      <Canvas
+      <Canvas key={canvasKey} 
         style={{ width: "100%", height: "100%" }}   // ✅ full fit
       >
         <ResponsiveCamera />

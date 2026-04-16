@@ -11,7 +11,7 @@ export const TriangleProvider = ({ children, prop, handleDataTrack }) => {
 
   const [state, setState] = useState({ toggleSetting: false });
   const [ismaximized, setIsMaximized] = useState(false);
-
+const [canvasKey, setCanvasKey] = useState(0);
   const [isLiveClass, setIsLiveClass] = useState(false);
   const [roleName, setRoleName] = useState("tutor");
   const [isActiveButton, setIsActiveButton] = useState({
@@ -97,6 +97,7 @@ export const TriangleProvider = ({ children, prop, handleDataTrack }) => {
     isActiveButton,
     setIsActiveButton,
     isButtonAccess,
+    canvasKey, setCanvasKey,
 
   };
 

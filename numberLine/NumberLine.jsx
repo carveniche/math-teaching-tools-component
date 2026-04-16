@@ -397,14 +397,14 @@ const NumberLine = ({ props, handleDataTrack }) => {
 
   useEffect(() => {
     if (isLiveClass && role_name !== "tutor") {
-        const settings = Data?.getIntegerStartNumberLine;
+      const settings = Data?.getIntegerStartNumberLine;
       if (!settings) return;
 
       const { getIntegerStart, getIntegerEnd, getEndDivisor } = settings;
-      console.log(Data,"jssjssjshsjshsj");
+      console.log(Data, "jssjssjshsjshsj");
       setgetIntegerStart(getIntegerStart);
-      setgetIntegerEnd(getIntegerEnd );
-      setgetEndDivisor(getEndDivisor );
+      setgetIntegerEnd(getIntegerEnd);
+      setgetEndDivisor(getEndDivisor);
     }
   }, [Data?.getIntegerStartNumberLine])
 
@@ -421,7 +421,7 @@ const NumberLine = ({ props, handleDataTrack }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          height: "100%",
+          height: isLiveClass ? '100%' : 'calc(100vh - 200px)',
           background: "skyblue",
           borderRadius: "0.25rem"
         }}
