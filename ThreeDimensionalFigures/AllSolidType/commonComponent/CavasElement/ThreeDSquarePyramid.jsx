@@ -42,7 +42,7 @@ const SquarePyramid = ({ color, autoRotate }) => {
 const SquarePyramid3D = () => {
   const [color, setColor] = useState("#f59e0b");
   const [autoRotate, setAutoRotate] = useState(false);
-  const { isLiveClass } = useTriangleContext();
+  const { isLiveClass,canvasKey } = useTriangleContext();
 
   return (
     <div
@@ -55,7 +55,7 @@ const SquarePyramid3D = () => {
         overflow: "hidden",
       }}
     >
-      <Canvas
+      <Canvas  key={canvasKey} 
         camera={{ position: [0, 0, 6], fov: 50 }}
         dpr={[1, 1]}   // 👈 removes edge blur
       >

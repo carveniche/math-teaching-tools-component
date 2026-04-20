@@ -39,7 +39,7 @@ const Cone = ({ color, autoRotate }) => {
 const Cone3D = () => {
   const [color, setColor] = useState("#f97316");
   const [autoRotate, setAutoRotate] = useState(false);
-  const { isLiveClass } = useTriangleContext();
+  const { isLiveClass,canvasKey } = useTriangleContext();
 
   return (
     <div
@@ -52,7 +52,7 @@ const Cone3D = () => {
         overflow: "hidden",
       }}
     >
-      <Canvas camera={{ position: [0, 0, 7], fov: 50 }}>
+      <Canvas camera={{ position: [0, 0, 7], fov: 50 }}  key={canvasKey} >
         <ambientLight intensity={0.7} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
         <directionalLight position={[-5, -5, -5]} intensity={0.4} />

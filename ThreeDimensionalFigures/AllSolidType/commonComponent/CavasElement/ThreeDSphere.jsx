@@ -39,7 +39,7 @@ const Sphere = ({ color, autoRotate }) => {
 const Sphere3D = () => {
   const [color, setColor] = useState("#22c55e");
   const [autoRotate, setAutoRotate] = useState(false);
-  const { isLiveClass } = useTriangleContext();
+  const { isLiveClass,canvasKey } = useTriangleContext();
 
   return (
     <div
@@ -52,7 +52,7 @@ const Sphere3D = () => {
         overflow: "hidden",
       }}
     >
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+      <Canvas  key={canvasKey}  camera={{ position: [0, 0, 5], fov: 50 }}>
         <ambientLight intensity={0.7} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
         <directionalLight position={[-5, -5, -5]} intensity={0.4} />

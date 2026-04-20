@@ -50,7 +50,7 @@ const TriangularPrism = ({ color, autoRotate }) => {
 const TriangularPrism3D = () => {
   const [color, setColor] = useState("#3b82f6");
   const [autoRotate, setAutoRotate] = useState(false);
-  const { isLiveClass } = useTriangleContext();
+  const { isLiveClass,canvasKey } = useTriangleContext();
 
   return (
     <div
@@ -63,7 +63,7 @@ const TriangularPrism3D = () => {
         overflow: "hidden",
       }}
     >
-      <Canvas camera={{ position: [4, 3, 5], fov: 50 }}>
+      <Canvas  key={canvasKey}  camera={{ position: [4, 3, 5], fov: 50 }}>
         <ambientLight intensity={0.7} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
         <directionalLight position={[-5, -5, -5]} intensity={0.4} />

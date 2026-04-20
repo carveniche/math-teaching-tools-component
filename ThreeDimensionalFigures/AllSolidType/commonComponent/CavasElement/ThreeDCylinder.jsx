@@ -62,7 +62,7 @@ const Cylinder3D = () => {
   const containerRef = useRef(null);
   const [color, setColor] = useState("#3b82f6");
   const [autoRotate, setAutoRotate] = useState(false);
-  const { isLiveClass } = useTriangleContext();
+  const { isLiveClass,canvasKey } = useTriangleContext();
 
   return (
     <div
@@ -76,7 +76,7 @@ const Cylinder3D = () => {
       }}
     >
       {/* 3D Canvas */}
-      <Canvas style={{ width: "100%", height: "100%" }}>
+      <Canvas  key={canvasKey}  style={{ width: "100%", height: "100%" }}>
         <ResponsiveCamera />
         <ambientLight intensity={0.7} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
