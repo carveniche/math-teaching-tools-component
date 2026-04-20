@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useProtractorLogic } from "./productorLogic";
-import ToogleButton from "../../CommonComponent/ToogleButton";
 import Style1 from "./portalProtector.module.css"
 import Style2 from "./liveClassProtector.module.css"
 
 
-function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveClass }) {
+function Protector({ prop, trackAngle, handleDataTrack = () => { } }) {
+  const {
+    isLiveClass = false,
+    role_name,
+    accessType
+  } = prop ?? {};
   const styles = isLiveClass ? Style2 : Style1;
   const productorRef = useRef(null);
   const [visible, setVisible] = useState(true);
@@ -23,21 +27,44 @@ function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveC
     }
   }, [angle, isLiveClass])
 
-  const isAccess = (role_name === "tutor" && accessType === "teacher") || (role_name !== "tutor" && accessType === "student");
+  const isAccess = isLiveClass ? (role_name === "tutor" && accessType === "teacher") || (role_name !== "tutor" && accessType === "student") : true;
 
   return (
-    <div className={`${styles.mainParent} bg-white`}>
+    <div className={`${styles.mainParent}`}>
       <div className={`${styles.contentRoot}`}>
-        {role_name === "tutor" && (<div className={`${styles.logoDiv}`}>
-          <ToogleButton />
-        </div>)}
         <div className={`${styles.setContent}`}>
           <div className={`${styles.productorDiv}`}>
             <div className={`${styles.card}`} id="enable-full-screen">
+              {!isLiveClass && <div className={`${styles.fullBtn}`}
+                style={{
+                  position: "relative"
+                }}
+              >
+                <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/full.png" alt="full-screen" onClick={toggleFullscreen} />
+              </div>}
+              <div
+                className={styles.cardHeader}
+                style={{ position: "absolute", top: "20px" }}
+              >
+                {error && (
+                  <div
+                    style={{
+                      color: "#ff4d4f",
+                      background: "#fff1f0",
+                      fontSize: "20px",
+                      border: "1px solid #ffa39e",
+                      padding: "6px 10px",
+                      borderRadius: "4px",
+                      fontWeight: 800,
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
+              </div>
 
               <div className={`${styles.protractorContainer}`} >
                 <img
-                  // src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/Protractor.svg"
                   src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/protracterimage.png"
                   className={`${styles.protractorImage}`}
                   alt="Protractor"
@@ -59,7 +86,7 @@ function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveC
                     {/* <img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/rightArrow.png" alt="arrow" style={{position:"absolute"}}/> */}
                     <span style={{ width: "1rem", height: "1rem", background: "linear-gradient(180deg, #ffff 0%, blue 100%)", position: "absolute", borderRadius: "50%", top: "1.5rem", left: "-7px" }}></span>
                   </div>
-                  {true && <p className={`${styles.dragMeTwo}`}><img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/drag.png" alt="Drag indicator" /></p>}
+                  {visible && <p className={`${styles.dragMeTwo}`}><img src="https://d3g74fig38xwgn.cloudfront.net/teaching-tool/drag.png" alt="Drag indicator" /></p>}
                   <div className={`${styles.centerPoint}`} />
                   <div
                     className={`${styles.needleTwo}`}
@@ -74,8 +101,10 @@ function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveC
 
               <div className={`${styles.inputCard}`} style={{ padding: "0.5rem", flexDirection: "row" }}>
                 <p style={{ margin: '0', padding: "10px" }} className={`${styles.h4Large}`}>Enter Angle</p>
-                <div className={`${styles.inputContainer}`} style={{ background: "rgb(249, 157, 188)", width: "100%", borderRadius: "1rem", }}>
-                  <div className="" style={{ display: 'flex', justifyContent: 'center', alignItems: "start", background: "rgb(249, 157, 188)", width: "100%", padding: "1rem", borderRadius: "1rem" }}>
+                <div className={`${styles.inputContainer}`}
+                  style={{ background: "rgb(249, 157, 188)", width: "100%", borderRadius: "1rem", }}>
+                  <div className=""
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: "start", background: "rgb(249, 157, 188)", width: "100%", padding: "1rem", borderRadius: "1rem" }}>
                     <input
                       type="number"
                       className={`${styles.timeInput} ${error ? `${styles.inputError}` : ""}`}
@@ -102,4 +131,4 @@ function Productor({ role_name, accessType, trackAngle, handleDataTrack, isLiveC
   );
 }
 
-export default Productor;
+export default Protector;

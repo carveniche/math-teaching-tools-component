@@ -44,13 +44,13 @@ export const TriangleProvider = ({ children, StudentData }) => {
     isActiveButton, setIsActiveButton
   }
 
-  const isAccess = role_name.toString() !== "tutor" && isLiveClass
+  const isAccess = isLiveClass
 
   useEffect(() => {
-    if (isAccess) {
+    // if (isAccess) {
       setIsActiveButton(defaultActiveButton);
       setDescriptionData("");
-    }
+    // }
 
   }, [trianglelist,]);
 
