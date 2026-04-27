@@ -4,7 +4,7 @@ import PlotSetting from './PlotSetting';
 import BarSetting from './BarSetting';
 import PictureGraphSetting from './PictureGraphSetting';
 
-const SettingButton = ({ graph }: any) => {
+const SettingButton = ({ graph, handleDataTrack,isTeacher }: any) => {
 
 
     return (
@@ -22,7 +22,7 @@ const SettingButton = ({ graph }: any) => {
           alignItems:"center"
             }}
         >
-            {graph === "Line Plot" ? <PlotSetting /> : graph === "Bar Graph" ? <BarSetting /> : <PictureGraphSetting />}
+            {graph === "Line Plot" ? <PlotSetting  handleDataTrack={handleDataTrack} isTeacher={isTeacher} /> : graph === "Bar Graph" ? <BarSetting  handleDataTrack={handleDataTrack} isTeacher={isTeacher} /> : <PictureGraphSetting />}
         </div>
     );
 };

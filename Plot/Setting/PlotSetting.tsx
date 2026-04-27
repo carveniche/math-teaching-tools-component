@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { usePlotContext } from '../context/PlotContext';
 
-const PlotSetting = () => {
+const PlotSetting = ({ handleDataTrack, isTeacher }: { handleDataTrack: Function; isTeacher: boolean }) => {
 
     const { setLineText, setXMarkers, setState, setLineError } = usePlotContext();
 
@@ -93,6 +93,16 @@ const PlotSetting = () => {
         }
         setLineText(localLineText);
         setXMarkers(localXMarkers);
+        if (isTeacher) {
+          handleDataTrack?.({
+            isFrom: "linePlotSetting",
+            data: {
+              lineText: localLineText,
+              xMarkers: localXMarkers,
+            
+            }
+          });
+        }
         setState(prev => ({ ...prev, toggleSetting: false }));
         
     };

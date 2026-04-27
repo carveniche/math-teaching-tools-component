@@ -128,6 +128,41 @@ export const PlotProvider = ({ children, props, handleDataTrack, graph }: { chil
     }
   }, [props?.isLiveClass, props?.role_name])
 
+  // Line Graph Data Tracking for Teacher
+
+
+  useEffect(() => {
+    if (!isAccessStudent) return;
+
+    const { xMarkersBarPlot, yMarkersBarPlot, barLineText } = props?.Data?.BarGraph ?? {};
+
+    if (graph === "Bar Graph" && xMarkersBarPlot && yMarkersBarPlot && barLineText) {
+      setBarLineText(barLineText);
+      setXMarkersBarPlot(xMarkersBarPlot);
+      setyMarkersBarPlot(yMarkersBarPlot);
+
+    }
+
+  }, [graph, props?.Data, isAccessStudent])
+
+
+  useEffect(() => {
+    if (!isAccessStudent) return;
+    if (!props?.Data) return;
+    if (graph !== "Line Plot") return;
+    // if (props?.Data?.isFrom !== "linePlotSetting") return;
+
+    const { lineText, xMarkers } = props?.Data?.linePlotSetting ?? {};
+
+    if (lineText && xMarkers) {
+      setLineText(lineText);
+      setXMarkers(xMarkers);
+    }
+
+  }, [graph, props?.Data, isAccessStudent])
+
+
+
   useEffect(() => {
     if (graph !== "Picture Graph") return;
 
