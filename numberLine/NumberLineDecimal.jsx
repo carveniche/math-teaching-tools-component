@@ -110,7 +110,7 @@ function NumberLineDecimal({ props, handleDataTrack }) {
           alignItems: "center",
           width: "100%",
           background: "skyblue",
-          height: "100%",
+      height: isLiveClass ? '100%' : 'calc(100vh - 200px)',
           backgroundSize: "20rem",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",

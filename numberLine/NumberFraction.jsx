@@ -115,7 +115,8 @@ function NumberLineFraction({ props, handleDataTrack }) {
         // background: "linear-gradient(to bottom, #fef3c7, #fed7aa)",
         // backgroundColor: 'rgba(255, 255, 255, 0.8)',
         background: "skyblue",
-        height: "100%",
+        // height: "100%",
+          height: isLiveClass ? '100%' : 'calc(100vh - 200px)',
         borderRadius: "0.25rem"
       }}
       id="enable-full-screen"

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const TenFrame = ({ prop, filledIndices, studentData, randomEmoji, handleDataTrack }) => {
+const TenFrame = ({ prop, filledIndices, studentData, randomEmoji, handleDataTrack, handlePlayAgainParent }) => {
     const { isLiveClass = false, role_name } = prop;
 
     const [userInput, setUserInput] = useState('');
@@ -21,7 +21,7 @@ const TenFrame = ({ prop, filledIndices, studentData, randomEmoji, handleDataTra
     const isMobile = containerW < 420;
     const isTutor = isLiveClass ? role_name === 'tutor' : true;
 
-    
+
     const userInputRef = useRef(userInput);
     const filledIndicesRef = useRef(filledIndices);
 
@@ -34,15 +34,15 @@ const TenFrame = ({ prop, filledIndices, studentData, randomEmoji, handleDataTra
         }
         const answer = parseInt(userInputRef.current, 10);
         const correct = filledIndicesRef.current.length;
-       
+
         setResult(!isNaN(answer) ? answer === correct : false);
     };
 
-    useEffect(()=>{
-         if(!userInput && isLiveClass && role_name !== 'tutor'){
+    useEffect(() => {
+        if (!userInput && isLiveClass && role_name !== 'tutor') {
             setResult(null)
-         }
-    },[userInput])
+        }
+    }, [userInput])
 
     useEffect(() => {
         if (isLiveClass && role_name === 'tutor') {
@@ -72,7 +72,12 @@ const TenFrame = ({ prop, filledIndices, studentData, randomEmoji, handleDataTra
 
     // ── Actions ───────────────────────────────────────────────────
     const handlePlayAgain = () => {
-        handleDataTrack({ isFrom: 'PlayAgain' });
+        if (isLiveClass) {
+
+            handleDataTrack({ isFrom: 'PlayAgain' });
+        } else {
+            handlePlayAgainParent()
+        }
         setUserInput('');
         setResult(null);
     };

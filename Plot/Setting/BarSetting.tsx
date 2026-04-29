@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { usePlotContext } from '../context/PlotContext';
 
-const BarSetting = () => {
+const BarSetting = ({ handleDataTrack, isTeacher }: { handleDataTrack: Function; isTeacher: boolean }) => {
   const { setXMarkersBarPlot, setBarLineText, setyMarkersBarPlot, setBarError, setState } = usePlotContext();
   const [localLineText, setLocalLineText] = useState({
     xlavelBarPlot: "Sections",
@@ -98,6 +98,17 @@ const BarSetting = () => {
     setBarLineText(localLineText);
     setXMarkersBarPlot(localXMarkersBarPlot);
     setyMarkersBarPlot(localYMarkersBarPlot);
+    if (isTeacher) {
+      handleDataTrack?.({
+        isFrom: "BarGraph",
+        data: {
+          xMarkersBarPlot: localXMarkersBarPlot,
+          yMarkersBarPlot: localYMarkersBarPlot,
+          barLineText: localLineText,
+        }
+      });
+    }
+
     setState(prev => ({ ...prev, toggleSetting: false }));
   }
 

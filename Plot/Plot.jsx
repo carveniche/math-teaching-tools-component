@@ -11,12 +11,12 @@ import LinePlotError from './Error/LinePlotError';
 const Plot = ({ graph, props, handleDataTrack = () => { } }) => {
   return (
     <PlotProvider props={props} graph={graph} handleDataTrack={handleDataTrack}>
-      <LineMain graph={graph} />
+      <LineMain graph={graph} handleDataTrack={handleDataTrack} />
     </PlotProvider>
   );
 };
 
-const LineMain = ({ graph }) => {
+const LineMain = ({ graph, handleDataTrack }) => {
   const { state, setState, isAcessTeacher, role_Name, isLiveClass } = usePlotContext();
   const settingRef = useRef(null);
 
@@ -34,6 +34,7 @@ const LineMain = ({ graph }) => {
   };
 
   const isAcess = isLiveClass ? role_Name === "tutor" : true
+  const isTeacher = isLiveClass ? role_Name === "tutor" : false;
   const [showTip, setShowTip] = useState(false);
 
   return (
@@ -165,7 +166,7 @@ const LineMain = ({ graph }) => {
           alignItems: 'center',
         }}
       >
-        <SettingButton graph={graph} />
+        <SettingButton graph={graph}  handleDataTrack={handleDataTrack} isTeacher={isTeacher} />
       </div>
     </div>
   );
