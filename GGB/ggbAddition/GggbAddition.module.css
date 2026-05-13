@@ -1,0 +1,407 @@
+.mainParentContainerForMeasurement {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: flex-start;
+  /* height: 100vh; */
+  padding: 1rem;
+  gap: 40px;
+  background-image: url("https://d3g74fig38xwgn.cloudfront.net/teaching-tool/backgroundImages.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  min-width: 52rem;
+  /* overflow: hidden; */
+}
+
+.subMainContentContainerForMeasurement {
+  width: 95%;
+  background: white;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10px;
+  gap: 2rem;
+  /* height: 95vh; */
+  /* padding-top: 1rem; */
+  position: relative;
+  overflow: hidden;
+}
+.mainToolContainerForSplit{
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 100%;
+    /* overflow-y: auto; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    /* padding: 1rem; */
+}
+.leftSideTableContainer{
+    /* border: 1px solid green; */
+    min-height: 500px;
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+.rightSideTableContainer{
+    /* border: 1px solid blue; */
+    height: 98%;
+    border-radius: 10px;
+    width: 100%;
+    background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+    /* overflow: auto; */
+}
+.inputSectionContainer{
+    /* width: 90%; */
+    border-radius: 10px;
+    /* margin:0 auto; */
+    padding:0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-direction: row;
+    /* border: 2px solid red; */
+}
+.inputSectionContainerForCheckBoxes{
+        width: fit-content;
+    border-radius: 10px;
+    /* margin:0 auto; */
+    padding:0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-direction: row;
+    background-color: azure;
+}
+.firstInputBoxContainerForCheckBox,.secondInputBoxContainerForCheckBox{
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+    /* background-color: #FFFFFF; */
+    padding: 0.5rem;
+    margin: auto;
+    color: black;
+    font-weight: bold;
+}
+.firstInputBoxContainer,.secondInputBoxContainer{
+    /* width: 100%; */
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+    /* background-color: #FFFFFF; */
+    padding: 0.5rem;
+    margin: auto;
+    color: black;
+    font-weight: bold;
+}
+.firstInputBoxContainer input {
+    width: 100px;
+    height: 50px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: center;
+}
+.secondInputBoxContainer input{
+    width: 100px;
+    height: 50px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: center;
+}
+.firstInputBoxContainerForCheckBox input {
+    width: 100px;
+    height: 30px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: center;
+}
+.secondInputBoxContainerForCheckBox input{
+    width: 100px;
+    height: 30px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: center;
+}
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  flex-direction: column;
+}
+
+/* Hide default checkbox */
+.toggleLabel input {
+  display: none;
+}
+
+/* Slider background */
+.slider {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background: #d1d5db;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+/* Circle knob */
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Checked state */
+.toggleLabel input:checked + .slider {
+  background: #70a9c5;
+}
+
+/* Move knob when checked */
+.toggleLabel input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+.originalTensAndOnesTableHolder,.SecondOriginalTensAndOnesTableHolder{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap:10px;
+}   
+.tableStyleControl {
+  width: 30px;
+  border: 0.1rem solid #ff8c42;
+  transition: 
+    transform 0.5s ease,
+    opacity 0.5s ease,
+    background-color 2s ease;
+}
+.moveToTens {
+  transform: translateY(-80px);
+  opacity: 0;
+}
+
+
+@keyframes moveUpToTens {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-40px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+}
+
+.moveToTens {
+  animation: moveUpToTens 0.6s ease forwards;
+}
+.tensPop {
+  transform: scale(1.2);
+}
+.hundredAnimate {
+  transform: scale(1.2);
+  opacity: 1;
+}
+.tableStyleControl {
+  opacity: 1;
+}
+
+
+@keyframes popTens {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.tensPop {
+  animation: popTens 0.4s ease;
+}
+@keyframes hundredBurst {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.hundredAnimate {
+  animation: hundredBurst 0.5s ease forwards;
+}
+
+
+/* 🔥 Smooth view switching animation */
+
+.leftSideTableContainer {
+  position: relative;   /* IMPORTANT */
+  min-height: 500px;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Both views stacked */
+.initialView,
+.addedView {
+  position: absolute;
+  width: 100%;
+  transition: all 0.6s ease;
+}
+
+/* Visible */
+.fadeIn {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Hidden */
+.fadeOut {
+  opacity: 0;
+  transform: translateY(40px);
+  pointer-events: none;
+}
+/* 🔥 Result Position */
+.resultWrapper {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  z-index: 10;
+}
+
+/* 🔥 Result Card */
+.resultCard {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  /* box-shadow: 0 8px 20px rgba(0,0,0,0.2); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: resultFadeIn 0.5s ease;
+}
+
+/* Label */
+.resultLabel {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+/* Big Number */
+.resultValue {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+/* Animation */
+@keyframes resultFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hundredBubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  color: #333;
+  font-size: 1.3rem;
+  font-weight: bold;
+  /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); */
+  margin-bottom: 6px;
+  animation: bubblePop 0.4s ease;
+}
+
+/* Cute pop animation */
+@keyframes bubblePop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.resetWrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+}
+
+.resetButton {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 25px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  /* box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2); */
+  transition: all 0.3s ease;
+}
+
+.resetButton:hover {
+  transform: translateY(-2px);
+}
+
+.resetButton:active {
+  transform: scale(0.95);
+}
