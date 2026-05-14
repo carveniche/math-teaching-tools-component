@@ -292,14 +292,14 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
 
   }
 
-  const dataTrackTransferValue = () => {
+  const dataTrackTransferValue = (value) => {
     if (!isLiveClassTeacher) return;
 
     if (isLiveClassTeacher) {
       handleDataTrack({
         isFrom: "transferValue",
         data: {
-          value: 1
+          value: value
         }
       })
     }
@@ -330,38 +330,14 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
 
 
     <div
-      className="w-full bg-white flex flex-row-reverse justify-between items-start p-4 pt-4 rounded-[10px] gap-8 h-[100%] relative"
+      className={`xl:w-[80vw] w-full bg-white flex flex-row-reverse justify-around items-start p-4 pt-4 rounded-[10px] gap-8 h-[100%] relative`}
     >
-      {result && (
-
-        <div
-          className=" hidden lg:flex  m-2 px-3 py-2 rounded-lg font-semibold text-white  gap-2 justify-center items-center absolute top-2 left-1/2 w-fit z-20 -translate-x-1/2 transition-all duration-500 ease-in-out border-b-2 hover:-translate-y-px hover:border-b-4 active:border-b active:translate-y-0"
-          style={{
-            background: "linear-gradient(#1f5afe, #0f4cf5)",
-            boxShadow: "inset 0pt 4pt 3pt -2pt #386fff, 0pt 4pt 5pt -3pt #0009",
-            borderBottomColor: "#083acd",
-          }}
-        >
-          {/* .btn-txt */}
-          <span>Result : </span>
-
-          <span
-            className="mx-1 px-2 py-0.5 rounded"
-            style={{
-              backgroundColor: "#3e6eff",
-              boxShadow:
-                "inset 0pt -3pt 3pt -2pt #1f54f0, inset 0pt 3pt 3pt -2pt #658dff, 0pt 2pt 2pt -2pt #0005, 0pt 0pt 0pt 2pt #0d47f0",
-            }}
-          >
-            {result}
-          </span>
-        </div>
-      )}
+      
 
       {error && (
 
         <div
-          className="mt-2.5 px-[15px] py-2.5 bg-[#ffe6e6] text-[#d8000c] border border-[#ff4d4f] rounded-md font-semibold text-sm shadow-[0_2px_6px_rgba(0,0,0,0.1)] animate-[fadeIn_0.3s_ease-in-out] absolute z-20 left-[42%]"
+          className="mt-2.5 px-[15px] py-2.5 bg-[#ffe6e6] text-[#d8000c] border border-[#ff4d4f] rounded-md font-semibold text-sm shadow-[0_2px_6px_rgba(0,0,0,0.1)] animate-[fadeIn_0.3s_ease-in-out] absolute z-1 left-[42%]"
         >
           ⚠ {error}
         </div>
@@ -372,7 +348,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
         <div className="flex flex-col gap-5 justify-start items-start h-full">
 
           {result && (<div
-            className=" flex lg:hidden  m-2 px-3 py-2 rounded-lg font-semibold text-white  gap-2 justify-center items-center  w-fit  transition-all duration-500 ease-in-out border-b-2 hover:-translate-y-px hover:border-b-4 active:border-b active:translate-y-0"
+            className=" flex   m-2 px-3 py-2 rounded-lg font-semibold text-white  gap-2 justify-center items-center  w-fit  transition-all duration-500 ease-in-out border-b-2 hover:-translate-y-px hover:border-b-4 active:border-b active:translate-y-0"
             style={{
               background: "linear-gradient(#1f5afe, #0f4cf5)",
               boxShadow: "inset 0pt 4pt 3pt -2pt #386fff, 0pt 4pt 5pt -3pt #0009",
@@ -383,7 +359,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
           </div>)}
 
 
-          <div className="flex  justify-center  w-full items-center gap-[10px]">
+          <div className="flex    w-full items-center gap-[10px]">
 
             <div
               className="inline-flex justify-center items-center font-bold text-white px-[18px] py-2 rounded-[5px] text-center"
@@ -406,7 +382,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
           </div>
 
           {inputValue1.length > 0 && (
-            <div className="flex  justify-center items-center w-full gap-[10px]">
+            <div className="flex   items-center w-full gap-[10px]">
 
               <div
                 className="inline-flex justify-center items-center font-bold text-white px-[18px] py-2 rounded-[5px] text-center"
@@ -454,10 +430,10 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
                 <label className="flex items-center gap-2 cursor-pointer text-base font-bold text-white">
 
                   <input
-                    type="radio"
+                    type="checkbox"
                     name="borrow"
                     value="1"
-                    checked={transferValue === 1}
+                    checked={transferValue}
                     disabled={isLiveClass ? isLiveClassStudent : false}
                     onChange={() => {
                       if (isLiveClassStudent) {
@@ -465,9 +441,9 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
                       }
 
                       if (isLiveClassTeacher) {
-                        dataTrackTransferValue()
+                        dataTrackTransferValue(transferValue ? 0 :1)
                       }
-                      setTransferValue(1)
+                      setTransferValue(transferValue ? 0 :1)
                     }}
                     className="hidden"
                   />
@@ -534,7 +510,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
 
 
       <div
-        className="flex gap-5 relative h-[25vh] bg-white/80 rounded-[10px] top-8"
+        className="flex gap-5 relative h-[30vh] bg-white/80 rounded-[10px] top-8"
       >
 
         <div
