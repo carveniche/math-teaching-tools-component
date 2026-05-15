@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ggbSubtractTwoDigit.css";
-function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux }) {
+function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDatafromRedux = () => { } }) {
   const { isLiveClass, role_name, Data } = props ?? {};
   const isLiveClassTeacher = isLiveClass && role_name === "tutor"
   const isLiveClassStudent = isLiveClass && role_name !== "tutor"
@@ -332,7 +332,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
     <div
       className={`xl:w-[80vw] w-full bg-white flex flex-row-reverse justify-around items-start p-4 pt-4 rounded-[10px] gap-8 h-[100%] relative`}
     >
-      
+
 
       {error && (
 
@@ -441,9 +441,9 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack, props, clearDatafromRedux 
                       }
 
                       if (isLiveClassTeacher) {
-                        dataTrackTransferValue(transferValue ? 0 :1)
+                        dataTrackTransferValue(transferValue ? 0 : 1)
                       }
-                      setTransferValue(transferValue ? 0 :1)
+                      setTransferValue(transferValue ? 0 : 1)
                     }}
                     className="hidden"
                   />

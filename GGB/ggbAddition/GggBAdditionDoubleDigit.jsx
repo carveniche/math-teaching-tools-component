@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import ggbAddition from "./GggbAddition.module.css";
 import GggbTableSectorContainer from "./GggbTableSectorContainer";
 
-function GggBAdditionDoubleDigit({ handleDataTrack, props, clearDatafromRedux }) {
+function GggBAdditionDoubleDigit({ handleDataTrack = () => { }, props, clearDatafromRedux = () => { } }) {
   const { isLiveClass, role_name, Data } = props ?? {};
 
   const isLiveClassStudent = role_name !== "tutor" ? true : false;
@@ -74,7 +74,7 @@ function GggBAdditionDoubleDigit({ handleDataTrack, props, clearDatafromRedux })
       },
     });
   };
-  
+
   useEffect(() => {
     if (Data === undefined) return;
     if (!isLiveClassStudent) return;
@@ -142,7 +142,7 @@ function GggBAdditionDoubleDigit({ handleDataTrack, props, clearDatafromRedux })
         style={{
           width: "95%",
           height: "100%",
-          background: "red",
+          background: "white",
           display: "flex",
           flexDirection: "row-reverse",
           justifyContent: "center",
