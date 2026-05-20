@@ -41,7 +41,7 @@ function GggbTableSectorContainer({
     <div className="relative w-full h-full flex justify-center items-center flex-col overflow-hidden">
 
       {showAdded && (
-        <div className="absolute top-[10px] left-0 z-10">
+        <div className="absolute top-[10px] left-0 z-1">
           <div
             className="text-white px-3 py-2 rounded-[12px] flex flex-col items-center"
             style={{
@@ -65,7 +65,7 @@ function GggbTableSectorContainer({
         {/* FIRST NUMBER */}
         <div className="w-full flex justify-center items-end flex-row gap-[10px]">
           {/* TENS */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col">
             <span
               className="inline-flex items-center justify-center w-[32px] h-[32px] rounded-full text-[#333] text-[0.9rem] font-bold mb-[4px] flex-shrink-0"
               style={{
@@ -124,7 +124,7 @@ function GggbTableSectorContainer({
 
         {/* SECOND NUMBER */}
         <div className="w-full flex justify-center items-end flex-row gap-[10px]">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col">
             <span
               className="inline-flex items-center justify-center w-[32px] h-[32px] rounded-full text-[#333] text-[0.9rem] font-bold mb-[4px] flex-shrink-0"
               style={{
@@ -151,7 +151,7 @@ function GggbTableSectorContainer({
             </table>
           </div>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col ">
             <span
               className="inline-flex items-center justify-center w-[32px] h-[32px] rounded-full text-[#333] text-[0.9rem] font-bold mb-[4px] flex-shrink-0"
               style={{
@@ -188,7 +188,7 @@ function GggbTableSectorContainer({
 
           {/* HUNDREDS */}
           {displayHundreds > 0 && (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col">
               <span
                 className="inline-flex items-center justify-center w-[32px] h-[32px] rounded-full text-[#333] text-[0.9rem] font-bold mb-[4px] flex-shrink-0"
                 style={{
@@ -219,7 +219,7 @@ function GggbTableSectorContainer({
           )}
 
           {/* TENS */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col">
             <span
               className="inline-flex items-center justify-center w-[32px] h-[32px] rounded-full text-[#333] text-[0.9rem] font-bold mb-[4px] flex-shrink-0"
               style={{
