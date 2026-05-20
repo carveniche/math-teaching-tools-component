@@ -322,7 +322,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
 
 
-  const isLiveClassButtonRes = isLiveClass ? role_name === "tutor" : false
+  const isLiveClassButtonRes = isLiveClass ? role_name === "tutor" : true;
 
 
   return (
@@ -330,14 +330,14 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
 
     <div
-      className={`xl:w-[80vw] w-full bg-white flex flex-row-reverse justify-around items-start p-4 pt-4 rounded-[10px] gap-8 h-[100%] relative`}
+      className={`${isLiveClass ? "xl:w-[80vw] justify-around" : "w-full justify-between"}     w-full bg-white flex flex-row-reverse  items-start p-4 pt-4 rounded-[10px] gap-8 h-[100%] relative`}
     >
 
 
       {error && (
 
         <div
-          className="mt-2.5 px-[15px] py-2.5 bg-[#ffe6e6] text-[#d8000c] border border-[#ff4d4f] rounded-md font-semibold text-sm shadow-[0_2px_6px_rgba(0,0,0,0.1)] animate-[fadeIn_0.3s_ease-in-out] absolute z-1 left-[42%]"
+          className={`mt-2.5 px-[15px ${isLiveClass ? "" : "z-20"} ] p-3 bg-[#ffe6e6] text-[#d8000c] border border-[#ff4d4f] rounded-md font-semibold text-sm shadow-[0_2px_6px_rgba(0,0,0,0.1)] animate-[fadeIn_0.3s_ease-in-out] absolute z-1 left-[35%]`}
         >
           ⚠ {error}
         </div>
