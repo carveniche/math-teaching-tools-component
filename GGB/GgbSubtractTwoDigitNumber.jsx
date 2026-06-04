@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ggbSubtractTwoDigit.css";
+import styles from "./Slider.module.css";
 function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDatafromRedux = () => { }, containerHeight, containerRef }) {
   const { isLiveClass, role_name, Data } = props ?? {};
   const isLiveClassTeacher = isLiveClass && role_name === "tutor"
@@ -134,11 +135,11 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
   const highlightedStyle = {
     ...cellStyle,
-    background: `
-    radial-gradient(circle at 75% 25%, transparent 25%),
-    radial-gradient(circle at 30% 80%,  transparent 20%),
-    linear-gradient(145deg, #008cff, blue 60%, blue)
-  `,
+    background:
+      "linear-gradient(145deg, #008cff, #0057ff)",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
+    backdropFilter: "blur(6px)"
+    ,
 
     color: "#fff",
 
@@ -148,11 +149,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
     ...cellStyle,
 
 
-    background: `
-    radial-gradient(circle at 75% 25%, transparent 25%),
-    radial-gradient(circle at 30% 80%,  transparent 20%),
-    linear-gradient(145deg, #ffd000, yellow 60%, yellow)
-  `,
+    background: "linear-gradient(145deg, #ffd000, #ffb700)",
     color: "#fff",
 
     transition: "all 0.3s ease"
@@ -481,11 +478,13 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
           {inputValue2 && (!needsBorrowing || transferValue === 1) && (
 
-            < div className="mb-5 w-[300px] relative bottom-0 flex gap-2 justify-center items-center">
+            <div className="mb-5 w-[300px] flex  items-center gap-4 relative">
 
               <label
-                className="inline-block text-base font-bold text-white px-[18px] py-2 rounded-[5px] mb-2.5 absolute top-0 left-2"
-                style={{ background: "linear-gradient(135deg, #ff6b6b, #ff8e53)" }}
+                className="text-base font-bold text-white px-[18px] py-2 rounded-[5px]"
+                style={{
+                  background: "linear-gradient(135deg, #ff6b6b, #ff8e53)"
+                }}
               >
                 Subtract :
               </label>
@@ -497,29 +496,13 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
                 value={sliderValue}
                 disabled={isError}
                 onChange={(e) => {
-                  if (isLiveClassStudent) {
-                    return;
-                  }
-                  inputhandleChange(e)
+                  if (isLiveClassStudent) return;
+                  inputhandleChange(e);
+                }}
+                className={`  ${styles.sliderInput} w-[130px] h-[25px] rotate-[90deg] appearance-none outline-none cursor-pointer rounded-[20px]`}
 
-                }}
-                className="appearance-none w-[25px] h-[130px] rounded-[20px] outline-none cursor-pointer transition-all duration-300
-                    // [writing-mode:vertical-lr] [direction:ltr]
-                    [&::-webkit-slider-runnable-track]:w-[18px] [&::-webkit-slider-runnable-track]:rounded-[20px]
-                    [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[35px] [&::-webkit-slider-thumb]:w-[35px]
-                    [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white
-                    [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#6bdaff]
-                    [&::-webkit-slider-thumb]:shadow-[0_4px_10px_rgba(0,0,0,0.2)] [&::-webkit-slider-thumb]:-ml-2
-                    [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-300
-                    [&::-webkit-slider-thumb:hover]:scale-[1.2] [&::-webkit-slider-thumb:hover]:rotate-[10deg] [&::-webkit-slider-thumb:hover]:bg-[#fff8dc]
-                    [&::-moz-range-thumb]:h-[35px] [&::-moz-range-thumb]:w-[35px] [&::-moz-range-thumb]:rounded-full
-                    [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#ff6b6b]
-                    [&::-moz-range-thumb]:shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
-                style={{
-                  background: "linear-gradient(135deg, #fff6d6, #ffe8a3)",
-                  transform: "rotate(-0deg)"
-                }}
               />
+
             </div>
           )}
         </div>
@@ -613,7 +596,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
                         style={{
                           ...cellStyle,
                           background: isBorrowed
-                            ? "radial-gradient(circle at 75% 25%, transparent 25%),radial-gradient(circle at 30% 80%, transparent 20%),linear-gradient(145deg, #4dec35, #4dec35 60%, #4dec35)"
+                            ? "linear-gradient(145deg, #4dec35, #2fbf2a)"
                             : "transparent",
                           color: isBorrowed ? "white" : "white",
                           fontSize: "0.6rem",

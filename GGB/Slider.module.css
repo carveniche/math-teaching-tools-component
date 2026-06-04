@@ -1,0 +1,42 @@
+.sliderInput {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+/* Chrome + Safari track */
+.sliderInput::-webkit-slider-runnable-track {
+  height: 18px;
+  border-radius: 20px;
+  background: #fff2c2; /* ✅ your background color */
+}
+
+/* Firefox track */
+.sliderInput::-moz-range-track {
+  height: 18px;
+  border-radius: 20px;
+  background: #fff2c2; /* ✅ your background color */
+}
+
+/* Thumb (Chrome/Safari) */
+.sliderInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #6bdaff;
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+/* Thumb (Firefox) */
+.sliderInput::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #6bdaff;
+  cursor: pointer;
+}
