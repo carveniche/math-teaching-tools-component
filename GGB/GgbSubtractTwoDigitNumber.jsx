@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ggbSubtractTwoDigit.css";
-function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDatafromRedux = () => { } }) {
+function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDatafromRedux = () => { }, containerHeight, containerRef }) {
   const { isLiveClass, role_name, Data } = props ?? {};
   const isLiveClassTeacher = isLiveClass && role_name === "tutor"
   const isLiveClassStudent = isLiveClass && role_name !== "tutor"
@@ -323,6 +323,22 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
 
   const isLiveClassButtonRes = isLiveClass ? role_name === "tutor" : true;
+  const isError = (error ? true : false) || (isLiveClass ? isLiveClassStudent : false);
+
+  const inputhandleChange = (e) => {
+    if (isLiveClassTeacher) {
+      dataTrackSlider(parseInt(e.target.value))
+    }
+    setSliderValue(parseInt(e.target.value))
+  }
+
+  useEffect(() => {
+    if (!error) return;
+    if (isLiveClassTeacher) {
+      dataTrackSlider(0)
+    }
+    setSliderValue(0)
+  }, [error])
 
 
   return (
@@ -330,24 +346,29 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
 
     <div
-      className={`${isLiveClass ? "xl:w-[80vw] justify-around" : "w-full justify-between"}     w-full bg-white flex flex-row-reverse  items-start p-4 pt-4 rounded-[10px] gap-8 h-[100%] relative`}
+      className={`${isLiveClass ? "xl:w-[80vw] justify-around" : "w-full justify-between"}     w-full bg-white flex flex-row-reverse  items-start p-4 pt-4 rounded-[10px] gap-8  `}
+      style={{
+        height: containerHeight ? `${containerHeight}px` : "auto",
+        overflow: "auto",
+        boxSizing: "border-box",
+      }}
     >
 
 
       {error && (
 
         <div
-          className={`mt-2.5 px-[15px ${isLiveClass ? "" : "z-20"} ] p-3 bg-[#ffe6e6] text-[#d8000c] border border-[#ff4d4f] rounded-md font-semibold text-sm shadow-[0_2px_6px_rgba(0,0,0,0.1)] animate-[fadeIn_0.3s_ease-in-out] absolute z-1 left-[35%]`}
+          className={`mt-2.5 px-[15px ${isLiveClass ? "z-10" : "z-20"} ] p-3 bg-[#ffe6e6] text-[#d8000c] border border-[#ff4d4f] rounded-md font-semibold text-sm shadow-[0_2px_6px_rgba(0,0,0,0.1)] animate-[fadeIn_0.3s_ease-in-out] absolute z-1 left-[35%]`}
         >
           ⚠ {error}
         </div>
       )}
 
 
-      <div className="w-[257px] lg:w-[33%] overflow-y-scroll overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden h-full relative bg-[#FFC107] rounded-[10px] p-5">
+      <div className="w-[257px] lg:w-[33%] overflow-y-scroll overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden  relative min-h-full bg-[#FFC107] rounded-[10px] p-5">
         <div className="flex flex-col gap-5 justify-start items-start h-full">
 
-          {result && (<div
+          {result !== null && result !== "" && (<div
             className=" flex   m-2 px-3 py-2 rounded-lg font-semibold text-white  gap-2 justify-center items-center  w-fit  transition-all duration-500 ease-in-out border-b-2 hover:-translate-y-px hover:border-b-4 active:border-b active:translate-y-0"
             style={{
               background: "linear-gradient(#1f5afe, #0f4cf5)",
@@ -474,19 +495,16 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
                 min="0"
                 max="10"
                 value={sliderValue}
-                disabled={isLiveClass ? isLiveClassStudent : false}
+                disabled={isError}
                 onChange={(e) => {
                   if (isLiveClassStudent) {
                     return;
                   }
+                  inputhandleChange(e)
 
-                  if (isLiveClassTeacher) {
-                    dataTrackSlider(parseInt(e.target.value))
-                  }
-                  setSliderValue(parseInt(e.target.value))
                 }}
                 className="appearance-none w-[25px] h-[130px] rounded-[20px] outline-none cursor-pointer transition-all duration-300
-                    [writing-mode:vertical-lr] [direction:ltr]
+                    // [writing-mode:vertical-lr] [direction:ltr]
                     [&::-webkit-slider-runnable-track]:w-[18px] [&::-webkit-slider-runnable-track]:rounded-[20px]
                     [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[35px] [&::-webkit-slider-thumb]:w-[35px]
                     [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white
@@ -497,7 +515,10 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
                     [&::-moz-range-thumb]:h-[35px] [&::-moz-range-thumb]:w-[35px] [&::-moz-range-thumb]:rounded-full
                     [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#ff6b6b]
                     [&::-moz-range-thumb]:shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
-                style={{ background: "linear-gradient(135deg, #fff6d6, #ffe8a3)" }}
+                style={{
+                  background: "linear-gradient(135deg, #fff6d6, #ffe8a3)",
+                  transform: "rotate(-0deg)"
+                }}
               />
             </div>
           )}
@@ -510,7 +531,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
 
       <div
-        className="flex gap-5 relative h-[30vh] bg-white/80 rounded-[10px] top-8"
+        className="flex gap-5 h-[30vh] relative bg-white/80 rounded-[10px] top-8"
       >
 
         <div
@@ -609,7 +630,7 @@ function GgbSubtractTwoDigitNumber({ handleDataTrack = () => { }, props, clearDa
 
 
         <div
-          className="absolute top-0 left-0 flex gap-5 h-full bg-white/10 rounded-[10px] transition-transform duration-200"
+          className={`absolute ${sliderValue === 0 ? 'top-0' : 'top-[13px]'} left-0 flex gap-5 h-full bg-white/10 rounded-[10px] transition-transform duration-200`}
           style={{ transform: `translateY(${(sliderValue / 8) * 100}%)` }}
         >
           {sliderValue === 10 && (
