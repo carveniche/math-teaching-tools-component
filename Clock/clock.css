@@ -1,6 +1,6 @@
 
 .clock-app {
-    display: flex;
+    display: flex; 
     flex-direction: row;
     align-items: start;
     font-family: Arial, sans-serif;
