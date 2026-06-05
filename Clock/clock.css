@@ -1,7 +1,7 @@
 
 .clock-app {
     display: flex;
-    flex-direction: row;
+    flex-direction: row;  
     align-items: start;
     font-family: Arial, sans-serif;
     user-select: none;
